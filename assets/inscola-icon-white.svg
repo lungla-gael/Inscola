@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="110 38 180 134" width="180" height="134" role="img" aria-label="InScola — Empowering Education, Simplifying Management">
+    <g transform="translate(0 0)">
+      <path d="M150 86 C150 86 168 98 196 98 C224 98 242 86 242 86 L242 116 C242 130 222 140 196 140 C170 140 150 130 150 116 Z" fill="#FFFFFF"></path>
+      <path d="M196 50 L268 84 L196 118 L124 84 Z" fill="#FFFFFF"></path>
+      <path d="M196 70 L232 87 L196 104 L160 87 Z" fill="#0c2942" opacity="0.18"></path>
+      <circle cx="196" cy="84" r="7" fill="#FFFFFF"></circle>
+      <path d="M196 84 C150 96 132 100 130 126" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round"></path>
+      <circle cx="130" cy="130" r="6" fill="#FFFFFF"></circle>
+      <path d="M124 134 L136 134 L141 162 L119 162 Z" fill="#FFFFFF"></path>
+    </g></svg>

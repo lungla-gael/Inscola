@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InScola — Capabilities</title>
+<link rel="stylesheet" href="booklet.css">
+<style>
+/* page-specific diagrams */
+.hub{ position:relative; height:235px; }
+.hub__center{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+  width:118px; height:118px; border-radius:50%; background:radial-gradient(120% 120% at 30% 20%,var(--indigo-2),var(--indigo));
+  display:flex; flex-direction:column; align-items:center; justify-content:center; color:#fff;
+  box-shadow:0 12px 30px rgba(79,70,229,.4); z-index:3; }
+.hub__center svg{ width:40px; height:auto; color:#fff; margin-bottom:-6px; }
+.hub__center b{ font-family:var(--serif); font-weight:600; font-size:12pt; margin-top:0; letter-spacing:-.01em; }
+.hub__node{ position:absolute; transform:translate(-50%,-50%); width:118px; text-align:center; z-index:2; }
+.hub__node .b{ width:46px; height:46px; border-radius:13px; margin:0 auto 6px; display:flex; align-items:center; justify-content:center; box-shadow:0 5px 14px rgba(20,26,60,.13); }
+.hub__node .b svg{ width:23px; height:23px; }
+.hub__node .t{ font-family:var(--serif); font-weight:600; font-size:9.5pt; color:var(--ink); }
+.hub__node .s{ font-size:7.6pt; color:var(--muted); }
+.hub svg.wires{ position:absolute; inset:0; width:100%; height:100%; z-index:1; }
+
+.onprem{ display:flex; align-items:center; gap:0; }
+.onprem .bldg{ flex:none; width:140px; height:150px; border-radius:13px; border:1.5px solid var(--line-2); background:var(--soft); position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; }
+.onprem .bldg .lab{ position:absolute; top:9px; left:0; right:0; text-align:center; font-size:7.6pt; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+.onprem .srv{ width:58px; height:62px; border-radius:9px; background:linear-gradient(160deg,var(--indigo-2),var(--indigo)); display:flex; align-items:center; justify-content:center; box-shadow:0 8px 18px rgba(79,70,229,.32); }
+.onprem .srv svg{ width:30px; height:30px; color:#fff; }
+.onprem .barrier{ flex:none; width:84px; text-align:center; }
+.onprem .cloudx{ flex:1; opacity:.6; display:flex; flex-direction:column; align-items:center; gap:6px; color:var(--muted-2); }
+.onprem .cloudx svg{ width:40px; height:40px; }
+
+/* integration flow */
+.flow{ display:flex; flex-direction:column; gap:9px; }
+.flow .fr{ display:flex; align-items:center; gap:10px; }
+.flow .src,.flow .dst{ display:flex; align-items:center; gap:8px; padding:9px 13px; border-radius:9px; font-size:9.4pt; font-weight:600; }
+.flow .src{ background:var(--soft); border:1px solid var(--line); color:var(--ink); flex:none; width:48mm; }
+.flow .dst{ background:var(--indigo-tint); border:1px solid #cfd3fb; color:var(--indigo); flex:1; }
+.flow .src svg,.flow .dst svg{ width:15px; height:15px; flex:none; }
+.flow .arr{ flex:none; color:var(--muted-2); }
+.flow .arr svg{ width:20px; height:20px; display:block; }
+
+/* timeline */
+.timeline{ position:relative; }
+.tl-item{ display:flex; gap:16px; padding-bottom:15px; position:relative; }
+.tl-item:not(:last-child)::before{ content:""; position:absolute; left:17px; top:36px; bottom:0; width:2px; background:var(--line); }
+.tl-num{ flex:none; width:36px; height:36px; border-radius:50%; background:var(--indigo); color:#fff; font-family:var(--serif); font-weight:700; font-size:13pt; display:flex; align-items:center; justify-content:center; z-index:2; }
+.tl-item.soft .tl-num{ background:var(--indigo-tint); color:var(--indigo); }
+.tl-tt{ font-family:var(--serif); font-weight:600; font-size:12pt; color:var(--ink); }
+.tl-ds{ font-size:9.5pt; color:var(--muted); line-height:1.5; margin-top:2px; }
+
+.bigq{ font-family:var(--serif); font-weight:600; font-size:15pt; color:var(--ink); line-height:1.28; letter-spacing:-.01em; }
+.frline{ display:flex; gap:10px; align-items:baseline; padding:8px 0; border-bottom:1px solid var(--line); }
+.frline .en{ flex:1; font-weight:600; color:var(--ink); font-size:10.5pt; }
+.frline .fr{ flex:1; color:var(--indigo); font-size:10.5pt; font-style:italic; font-family:var(--serif); font-weight:500; }
+.frline .ctx{ flex:none; font-size:8pt; color:var(--muted-2); text-transform:uppercase; letter-spacing:.08em; }
+
+/* cost compare */
+.compare{ display:flex; gap:14px; }
+.compare .cc{ flex:1; border-radius:11px; padding:15px 16px; }
+.compare .cloud{ background:var(--soft); border:1px solid var(--line); }
+.compare .ours{ background:var(--ink); color:#fff; }
+.compare .cc h4{ font-family:var(--serif); font-weight:600; font-size:12pt; margin-bottom:8px; }
+.compare .ours h4{ color:#fff; }
+.compare .cc .li{ display:flex; gap:8px; font-size:9pt; line-height:1.45; padding:4px 0; }
+.compare .cloud .li{ color:var(--muted); }
+.compare .ours .li{ color:#d6d9ee; }
+.compare .x{ color:var(--rose); font-weight:800; flex:none; }
+.compare .v{ color:#5fd6a0; font-weight:800; flex:none; }
+.compare .big{ font-family:var(--serif); font-weight:700; font-size:15pt; color:var(--ink); margin-top:4px; }
+.compare .ours .big{ color:#fff; }
+.compare .ours strong{ color:#fff; }
+</style>
+</head>
+<body>
+
+<!-- ============ ICON + LOGO SYMBOLS ============ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="cap" viewBox="110 38 180 134">
+    <path d="M150 86 C150 86 168 98 196 98 C224 98 242 86 242 86 L242 116 C242 130 222 140 196 140 C170 140 150 130 150 116 Z" fill="currentColor"></path>
+    <path d="M196 50 L268 84 L196 118 L124 84 Z" fill="currentColor"></path>
+    <path d="M196 70 L232 87 L196 104 L160 87 Z" fill="#000" opacity=".15"></path>
+    <circle cx="196" cy="84" r="7" fill="currentColor"></circle>
+    <path d="M196 84 C150 96 132 100 130 126" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round"></path>
+    <circle cx="130" cy="130" r="6" fill="currentColor"></circle>
+    <path d="M124 134 L136 134 L141 162 L119 162 Z" fill="currentColor"></path>
+  </symbol>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v4h4"/><path d="M9 12h6M9 16h6"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="1.5"/><rect x="3" y="13" width="18" height="7" rx="1.5"/><path d="M7 7.5h.01M7 16.5h.01"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 22V4"/><path d="M5 4h12l-2 4 2 4H5"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4 3 6.5 7 9 4-2.5 7-5 7-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 2.5-5 6-5s6 2 6 5"/><path d="M16 6a3 3 0 0 1 0 6M21 20c0-2.5-1.5-4.2-4-4.8"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/></symbol>
+    <symbol id="i-coins" viewBox="0 0 24 24"><ellipse cx="9" cy="7" rx="6" ry="3"/><path d="M3 7v5c0 1.7 2.7 3 6 3s6-1.3 6-3V7"/><path d="M9 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></symbol>
+    <symbol id="i-cal" viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-id" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M6.5 16c.5-1.5 1.5-2 2.5-2s2 .5 2.5 2M14 9h4M14 13h4"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 19a2 2 0 0 0 4 0"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5c2-1 5-1 8 0v15c-3-1-6-1-8 0z"/><path d="M20 5c-2-1-5-1-8 0v15c3-1 6-1 8 0z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l4 4L19 6"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5z"/><path d="M3 13l9 5 9-5M3 18l9 5 9-5"/></symbol>
+    <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 18l4-5"/></symbol>
+    <symbol id="i-printer" viewBox="0 0 24 24"><path d="M7 8V3h10v5"/><rect x="4" y="8" width="16" height="8" rx="1.5"/><path d="M7 14h10v6H7z"/></symbol>
+    <symbol id="i-wifioff" viewBox="0 0 24 24"><path d="M3 3l18 18"/><path d="M5 12a11 11 0 0 1 4-2.6M2 8.5a16 16 0 0 1 5-3M22 8.5a16 16 0 0 0-7-3.4"/><path d="M8.5 15.5a6 6 0 0 1 5.5-1.3"/><path d="M12 19h.01"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-rank" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4"/><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 5H4v2a3 3 0 0 0 3 3M17 5h3v2a3 3 0 0 1-3 3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1 .5-8 6 6 0 0 1 11.5 2 3.5 3.5 0 0 1-.5 6z"/></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 12a11 11 0 0 1 14 0M8.5 15.5a6 6 0 0 1 7 0M2 8.5a16 16 0 0 1 20 0"/><path d="M12 19h.01"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14-4l-2 2M4 13a8 8 0 0 0 14 4l2-2"/><path d="M4 5v4h4M20 19v-4h-4"/></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M5 3v18l2-1 2 1 2-1 2 1 2-1 2 1V3l-2 1-2-1-2 1-2-1-2 1z"/><path d="M9 8h6M9 12h6"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M16 14h2"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></symbol>
+  </g>
+</svg>
+
+<div class="book">
+
+<!-- ============================== 01 COVER ============================== -->
+<section class="page cover" data-screen-label="01 Cover">
+  <div class="grid-tex"></div>
+  <div class="glow" style="width:280px;height:280px;background:#5b4ff0;opacity:.35;right:-60px;top:-40px;"></div>
+  <div class="glow" style="width:240px;height:240px;background:#2a2170;opacity:.5;left:-60px;bottom:120px;"></div>
+  <div class="page__inner col between">
+    <div class="col" style="gap:42px;">
+      <div class="lockup" style="--cap:46px;--word:34px; color:#fff;">
+        <svg><use href="#cap"></use></svg><span class="word">InScola</span>
+      </div>
+      <div class="col" style="gap:20px; max-width:150mm;">
+        <span class="eyebrow on-dark">School Management System · Cameroon</span>
+        <h1 class="h-display" style="color:#fff; font-size:46pt; line-height:1.02;">Run your entire&nbsp;school from one&nbsp;place.</h1>
+        <p class="lead" style="color:#c7cbe6; max-width:122mm;">Marks, report cards, transcripts, GCE-style mock results, fees, payroll, attendance and parent messaging — every role working from a single, bilingual system that lives on your own server.</p>
+      </div>
+    </div>
+
+    <div class="win" style="margin:0 0 6px;">
+      <div class="win__bar"><i></i><i></i><i></i></div>
+      <img src="shots/admin-dashboard.png" alt="InScola admin dashboard">
+    </div>
+
+    <div class="row between center" style="border-top:1px solid rgba(255,255,255,.14); padding-top:14px;">
+      <p style="color:#fff; font-family:var(--serif); font-weight:500; font-size:11pt;">Empowering Education, Simplifying Management</p>
+      <p class="small" style="color:#9aa0c4; letter-spacing:.06em;">A capabilities overview · English &amp; French</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 02 PROBLEM (reframed) ============================== -->
+<section class="page" data-screen-label="02 You already have something">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Capabilities Overview</span></div>
+  <div class="runfoot"><span>Why switch at all?</span><span class="pg">02</span></div>
+
+  <div class="body-region col" style="gap:18px;">
+    <div class="col" style="gap:11px; max-width:155mm;">
+      <span class="eyebrow">If your school already runs on something</span>
+      <h2 class="h-title" style="font-size:29pt;">You've probably already solved this — the hard way.</h2>
+      <p class="lead">Most schools have <em>something</em>: a spreadsheet one person maintains, a generic system imported from abroad, a locally-built tool that breaks when its author leaves, or a cloud service billed every month. They tend to share the same four complaints.</p>
+    </div>
+
+    <div class="grid2" style="gap:12px;">
+      <div class="callout" style="display:flex;gap:12px;">
+        <div class="ic" style="width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:#fdecec;color:var(--rose);"><svg width="16" height="16"><use href="#i-link"></use></svg></div>
+        <div><div class="tt" style="font-family:var(--serif);font-weight:600;font-size:10.5pt;color:var(--ink);">Nothing talks to each other</div><p class="small" style="margin-top:2px;">Marks in one place, fees in another, attendance in a book, payroll in a spreadsheet. Every cross-report is assembled by hand.</p></div>
+      </div>
+      <div class="callout" style="display:flex;gap:12px;">
+        <div class="ic" style="width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:#fdecec;color:var(--rose);"><svg width="16" height="16"><use href="#i-book"></use></svg></div>
+        <div><div class="tt" style="font-family:var(--serif);font-weight:600;font-size:10.5pt;color:var(--ink);">It wasn't built for us</div><p class="small" style="margin-top:2px;">The grading is wrong, the report-card format is wrong, the terminology is wrong — and sequences don't exist in it.</p></div>
+      </div>
+      <div class="callout" style="display:flex;gap:12px;">
+        <div class="ic" style="width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:#fdecec;color:var(--rose);"><svg width="16" height="16"><use href="#i-users"></use></svg></div>
+        <div><div class="tt" style="font-family:var(--serif);font-weight:600;font-size:10.5pt;color:var(--ink);">We depend on one person</div><p class="small" style="margin-top:2px;">The one who built the Excel or maintains the local tool. When they travel or leave, the school is stuck.</p></div>
+      </div>
+      <div class="callout" style="display:flex;gap:12px;">
+        <div class="ic" style="width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:#fdecec;color:var(--rose);"><svg width="16" height="16"><use href="#i-wallet"></use></svg></div>
+        <div><div class="tt" style="font-family:var(--serif);font-weight:600;font-size:10.5pt;color:var(--ink);">We pay forever, own nothing</div><p class="small" style="margin-top:2px;">Cloud systems charge every month, and the data isn't yours. Stop paying, and you lose access to your own records.</p></div>
+      </div>
+    </div>
+
+    <div class="callout indigo" style="margin-top:auto;">
+      <div class="k">The real question</div>
+      <p class="bigq">It isn't whether you have a system. It's whether yours does <em>everything</em>, fits <em>your</em> school, and actually <em>belongs to you</em>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 03 WHAT IS INSCOLA ============================== -->
+<section class="page" data-screen-label="03 What InScola is">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Capabilities Overview</span></div>
+  <div class="runfoot"><span>One system for the whole school</span><span class="pg">03</span></div>
+
+  <div class="body-region col" style="gap:18px;">
+    <div class="col" style="gap:11px; max-width:155mm;">
+      <span class="eyebrow">What InScola is</span>
+      <h2 class="h-title">One system. Every role. One source of truth.</h2>
+      <p class="lead">InScola connects the people who run your school around the same data. A teacher enters a mark; the Vice-Principal sees it on the mastersheet; the report card prints it; the bursary's records sit alongside it. Nobody re-types anything.</p>
+    </div>
+
+    <div class="hub">
+      <svg class="wires" viewBox="0 0 600 235" preserveAspectRatio="none">
+        <g stroke="#cfd3fb" stroke-width="2" fill="none">
+          <path d="M300 117 L96 48"/><path d="M300 117 L228 26"/><path d="M300 117 L372 26"/><path d="M300 117 L504 48"/>
+          <path d="M300 117 L150 205"/><path d="M300 117 L450 205"/>
+        </g>
+      </svg>
+      <div class="hub__center"><svg viewBox="116 46 160 122"><g fill="#fff"><path d="M150 86 C150 86 168 98 196 98 C224 98 242 86 242 86 L242 116 C242 130 222 140 196 140 C170 140 150 130 150 116 Z"></path><path d="M196 50 L268 84 L196 118 L124 84 Z"></path><circle cx="196" cy="84" r="7"></circle><path d="M196 84 C150 96 132 100 130 126" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"></path><circle cx="130" cy="130" r="6"></circle><path d="M124 134 L136 134 L141 162 L119 162 Z"></path></g></svg><b>InScola</b></div>
+
+      <div class="hub__node" style="left:15%;top:20%;"><div class="b bg-admin t-admin"><svg><use href="#i-sliders"></use></svg></div><div class="t">Administrator</div><div class="s">Sets up the school</div></div>
+      <div class="hub__node" style="left:38%;top:11%;"><div class="b bg-teacher t-teacher"><svg><use href="#i-doc"></use></svg></div><div class="t">Teachers</div><div class="s">Enter marks</div></div>
+      <div class="hub__node" style="left:62%;top:11%;"><div class="b bg-vp t-vp"><svg><use href="#i-eye"></use></svg></div><div class="t">Vice-Principal</div><div class="s">Oversees results</div></div>
+      <div class="hub__node" style="left:85%;top:20%;"><div class="b bg-bursar t-bursar"><svg><use href="#i-coins"></use></svg></div><div class="t">Bursar</div><div class="s">Fees &amp; receipts</div></div>
+      <div class="hub__node" style="left:25%;top:88%;"><div class="b bg-acct t-acct"><svg><use href="#i-chart"></use></svg></div><div class="t">Accountant</div><div class="s">Payroll &amp; Profit &amp; Loss</div></div>
+      <div class="hub__node" style="left:75%;top:88%;"><div class="b bg-disc t-disc"><svg><use href="#i-shield"></use></svg></div><div class="t">Discipline</div><div class="s">Conduct</div></div>
+    </div>
+
+    <hr class="rule">
+    <div class="grid2" style="gap:13px 26px; margin-top:2px;">
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-globe"></use></svg></div><div><div class="tt">Bilingual — English &amp; French</div><div class="ds">Every screen and every printed document, switched with one click.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-server"></use></svg></div><div><div class="tt">Runs on your own server</div><div class="ds">Inside the school building — staff connect by cable or Wi-Fi, no internet subscription needed to work.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-book"></use></svg></div><div><div class="tt">Out-of-20, sequences &amp; coefficients</div><div class="ds">The Cameroonian grading system is built into its core — not bolted on.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-printer"></use></svg></div><div><div class="tt">Ministry-style documents</div><div class="ds">Report cards, transcripts and ID cards in the formats schools actually use.</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 04 DIVIDER: 3 REASONS ============================== -->
+<section class="page divider" data-screen-label="04 Three reasons">
+  <div class="glow" style="width:300px;height:300px;background:#5b4ff0;opacity:.3;right:-80px;bottom:-60px;"></div>
+  <div class="page__inner col between">
+    <div class="lockup" style="--cap:30px;--word:21px;color:#fff;"><svg><use href="#cap"></use></svg><span class="word">InScola</span></div>
+    <div class="col" style="gap:24px;">
+      <span class="eyebrow on-dark">Why schools switch</span>
+      <h2 class="h-display" style="color:#fff; font-size:36pt; max-width:155mm;">Three reasons to switch to InScola.</h2>
+      <div class="col" style="gap:14px; margin-top:4px;">
+        <div class="row gap14" style="border-top:1px solid rgba(255,255,255,.16); padding-top:14px;">
+          <span style="font-family:var(--serif); font-weight:700; font-size:21pt; color:#8b8ff5; width:44px;">01</span>
+          <div><div style="font-family:var(--serif); font-weight:600; font-size:15pt; color:#fff;">It does what your current system can't.</div><div class="small" style="color:#9aa0c4;margin-top:2px;">Mock results, transcripts and GCE-native grading — separation, immediately.</div></div>
+        </div>
+        <div class="row gap14" style="border-top:1px solid rgba(255,255,255,.16); padding-top:14px;">
+          <span style="font-family:var(--serif); font-weight:700; font-size:21pt; color:#8b8ff5; width:44px;">02</span>
+          <div><div style="font-family:var(--serif); font-weight:600; font-size:15pt; color:#fff;">One system, where everything talks.</div><div class="small" style="color:#9aa0c4;margin-top:2px;">Marks, attendance, fees and payroll feed each other automatically.</div></div>
+        </div>
+        <div class="row gap14" style="border-top:1px solid rgba(255,255,255,.16); padding-top:14px; border-bottom:1px solid rgba(255,255,255,.16); padding-bottom:14px;">
+          <span style="font-family:var(--serif); font-weight:700; font-size:21pt; color:#8b8ff5; width:44px;">03</span>
+          <div><div style="font-family:var(--serif); font-weight:600; font-size:15pt; color:#fff;">Owned by you. No monthly fees.</div><div class="small" style="color:#9aa0c4;margin-top:2px;">On your server, your data — removing the last objection.</div></div>
+        </div>
+      </div>
+    </div>
+    <p class="small" style="color:#9aa0c4;">The order a principal feels them in a live demo: separation first, integration second, ownership to close.</p>
+  </div>
+</section>
+
+<!-- ============================== 05 REASON 01 ============================== -->
+<section class="page" data-screen-label="05 Reason 1">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Reason 01</span></div>
+  <div class="runfoot"><span>Does what your current system can't</span><span class="pg">05</span></div>
+
+  <div class="body-region col" style="gap:15px;">
+    <div class="row center gap14">
+      <span style="font-family:var(--serif); font-weight:700; font-size:30pt; color:var(--indigo);">01</span>
+      <div class="ic" style="width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--indigo-tint);color:var(--indigo);"><svg width="20" height="20"><use href="#i-rank"></use></svg></div>
+    </div>
+    <div class="col" style="gap:9px; max-width:158mm;">
+      <h2 class="h-title">Does what your current system can't.</h2>
+      <p class="body-text">Mock results computed into GCE letter grades from marks already in the system. Transcripts pulled from years of academic history. Report cards and class council statistics generated in seconds — averages, rankings, conduct, council decisions and student photo filled in automatically. Nothing calculated by hand.</p>
+    </div>
+
+    <div class="row gap14" style="align-items:stretch;">
+      <div class="col" style="flex:1; gap:6px;"><div class="shot"><img src="shots/admin-mock-results.png" alt="GCE mock results"></div><p class="caption">Regional mock results — GCE letter grades, A–U</p></div>
+      <div class="col" style="flex:1; gap:6px;"><div class="doc"><img src="shots/vp-transcript.png" alt="Transcript"></div><p class="caption">Official-format transcript, exam column on the right</p></div>
+    </div>
+
+    <div class="grid3" style="gap:10px 22px; margin-top:2px;">
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-rank"></use></svg></div><div><div class="tt">Mock results, GCE A–U</div><div class="ds">Marks from any sequence become letter grades — A, B, C, D, E, O, F, U — with configurable boundaries, ranked by papers passed.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-doc"></use></svg></div><div><div class="tt">O-Level &amp; A-Level transcripts</div><div class="ds">First Cycle (Ordinary Level) and Second Cycle (Advanced Level) in the official multi-year format — editable before printing.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-book"></use></svg></div><div><div class="tt">Sequences &amp; council decisions</div><div class="ds">Weighted annual averages and class council decisions.</div></div></div></div>
+    </div>
+
+    <div class="callout indigo" style="margin-top:auto;">
+      <div class="k">What it means for your school</div>
+      <p class="body-text" style="color:var(--ink);">Mock results, transcripts and council decisions are produced the way the examination cycle actually requires — by the system, in the official format — instead of being compiled by hand on someone's desk each term.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 06 REASON 02 ============================== -->
+<section class="page" data-screen-label="06 Reason 2">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Reason 02</span></div>
+  <div class="runfoot"><span>One system, everything talks</span><span class="pg">06</span></div>
+
+  <div class="body-region col" style="gap:16px;">
+    <div class="row center gap14">
+      <span style="font-family:var(--serif); font-weight:700; font-size:30pt; color:var(--indigo);">02</span>
+      <div class="ic" style="width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--indigo-tint);color:var(--indigo);"><svg width="20" height="20"><use href="#i-link"></use></svg></div>
+    </div>
+    <div class="col" style="gap:9px; max-width:158mm;">
+      <h2 class="h-title">One system. Everything talks to each other.</h2>
+      <p class="body-text">Most schools keep marks, fees, attendance and payroll in separate places that never connect. In InScola they live together and <strong>feed each other automatically</strong> — nothing re-entered, nothing cross-referenced by hand.</p>
+    </div>
+
+    <div class="flow">
+      <div class="fr"><div class="src"><svg><use href="#i-check"></use></svg>Attendance &amp; incidents</div><div class="arr"><svg><use href="#i-arrow"></use></svg></div><div class="dst"><svg><use href="#i-doc"></use></svg>Conduct rating on the report card</div></div>
+      <div class="fr"><div class="src"><svg><use href="#i-users"></use></svg>Guardian contact on file</div><div class="arr"><svg><use href="#i-arrow"></use></svg></div><div class="dst"><svg><use href="#i-bell"></use></svg>Automatic SMS &amp; email to the parent</div></div>
+      <div class="fr"><div class="src"><svg><use href="#i-coins"></use></svg>Outstanding fee balance</div><div class="arr"><svg><use href="#i-arrow"></use></svg></div><div class="dst"><svg><use href="#i-refresh"></use></svg>Carried forward by the promotion engine</div></div>
+      <div class="fr"><div class="src"><svg><use href="#i-doc"></use></svg>Marks entered once</div><div class="arr"><svg><use href="#i-arrow"></use></svg></div><div class="dst"><svg><use href="#i-layers"></use></svg>Mastersheet → report card → transcript</div></div>
+    </div>
+
+    <div class="callout indigo" style="margin-top:auto;">
+      <div class="k">What it means for your school</div>
+      <p class="body-text" style="color:var(--ink);">Academics, finance, conduct <em>and</em> payroll run in one deployment on one server — so a mark entered once reaches the mastersheet, report card and transcript, and a fee paid updates the books instantly. Nothing is re-entered, nothing falls out of sync.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 07 REASON 03 ============================== -->
+<section class="page" data-screen-label="07 Reason 3">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Reason 03</span></div>
+  <div class="runfoot"><span>Owned by you, no monthly fees</span><span class="pg">07</span></div>
+
+  <div class="body-region col" style="gap:15px;">
+    <div class="row center gap14">
+      <span style="font-family:var(--serif); font-weight:700; font-size:30pt; color:var(--indigo);">03</span>
+      <div class="ic" style="width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--indigo-tint);color:var(--indigo);"><svg width="20" height="20"><use href="#i-server"></use></svg></div>
+    </div>
+    <div class="col" style="gap:8px; max-width:158mm;">
+      <h2 class="h-title">Owned by you. No monthly fees.</h2>
+      <p class="body-text">On your server, in your building, with data you can back up to a USB drive and take home. The annual licence covers support and updates — but if you ever stop, the data doesn't disappear and the system doesn't stop working.</p>
+    </div>
+
+    <div class="compare">
+      <div class="cc cloud">
+        <h4>A typical cloud system</h4>
+        <div class="li"><span class="x">✕</span><span>Charged <strong>every month — indefinitely</strong> (≈ 50,000–100,000 XAF/mo)</span></div>
+        <div class="li"><span class="x">✕</span><span>Needs the internet to work at all</span></div>
+        <div class="li"><span class="x">✕</span><span>Data sits on a server abroad</span></div>
+        <div class="big" style="color:var(--rose);">~1.8–3.6M XAF / 3 yrs — own nothing</div>
+      </div>
+      <div class="cc ours">
+        <h4>InScola</h4>
+        <div class="li"><span class="v">✓</span><span>One modest <strong>annual licence</strong>, on your own hardware</span></div>
+        <div class="li"><span class="v">✓</span><span>Works offline; survives power cuts on a small UPS</span></div>
+        <div class="li"><span class="v">✓</span><span>You own the machine, the data and the backups</span></div>
+        <div class="big">Stop paying — your data still stays with you</div>
+      </div>
+    </div>
+
+    <div class="callout" style="display:flex; gap:12px; align-items:flex-start;">
+      <div class="ic" style="width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--indigo-tint);color:var(--indigo);"><svg width="16" height="16"><use href="#i-wifi"></use></svg></div>
+      <div><div class="tt" style="font-family:var(--serif);font-weight:600;font-size:10.5pt;color:var(--ink);">Deployed your way</div><p class="small" style="margin-top:2px;">Staff connect to the server over your school network — by cable <strong>or Wi-Fi</strong>, no running wires to every desk. Optionally give teachers secure online access to enter marks from home, and choose your scope: the whole school, a <strong>school-only</strong> (academics) or a finance-only deployment.</p></div>
+    </div>
+
+    <div class="callout indigo" style="margin-top:auto;">
+      <div class="k">What it means for your school</div>
+      <p class="body-text" style="color:var(--ink);">The system, the data and the backups sit physically in your school — for less than a year of typical cloud fees, and yours to keep whether or not you renew.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 08 ROLES OVERVIEW (6) ============================== -->
+<section class="page" data-screen-label="08 Roles overview">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>How it works day to day</span></div>
+  <div class="runfoot"><span>Six roles, one system</span><span class="pg">08</span></div>
+
+  <div class="body-region col" style="gap:14px;">
+    <div class="col" style="gap:9px; max-width:155mm;">
+      <span class="eyebrow">The people who run your school</span>
+      <h2 class="h-title">Six roles. One system.</h2>
+      <p class="lead">Each person signs in to a workspace built for their job — and only their job. The pages that follow show each in detail.</p>
+    </div>
+
+    <div class="col gap10" style="margin-top:2px;">
+      <div class="row center gap14" style="border:1px solid var(--line); border-radius:11px; padding:12px 15px;">
+        <div class="ic bg-admin t-admin" style="width:38px;height:38px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19"><use href="#i-sliders"></use></svg></div>
+        <div style="flex:none;width:40mm;"><span class="role-chip role-admin chip">Administrator</span></div>
+        <p class="small" style="flex:1;color:var(--text);">Academics, students, ID cards, users — and the whole school on one dashboard.</p>
+      </div>
+      <div class="row center gap14" style="border:1px solid var(--line); border-radius:11px; padding:12px 15px;">
+        <div class="ic bg-teacher t-teacher" style="width:38px;height:38px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19"><use href="#i-doc"></use></svg></div>
+        <div style="flex:none;width:40mm;"><span class="role-chip role-teacher chip">Teachers</span></div>
+        <p class="small" style="flex:1;color:var(--text);">Enter marks for both sequences with autosave, imports from Excel, sees who needs help.</p>
+      </div>
+      <div class="row center gap14" style="border:1px solid var(--line); border-radius:11px; padding:12px 15px;">
+        <div class="ic bg-vp t-vp" style="width:38px;height:38px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19"><use href="#i-eye"></use></svg></div>
+        <div style="flex:none;width:40mm;"><span class="role-chip role-vp chip">Vice-Principal</span></div>
+        <p class="small" style="flex:1;color:var(--text);">Mastersheets, coefficients, compliance, top/bottom, transcripts and report cards.</p>
+      </div>
+      <div class="row center gap14" style="border:1px solid var(--line); border-radius:11px; padding:12px 15px;">
+        <div class="ic bg-bursar t-bursar" style="width:38px;height:38px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19"><use href="#i-coins"></use></svg></div>
+        <div style="flex:none;width:40mm;"><span class="role-chip role-bursar chip">Bursar</span></div>
+        <p class="small" style="flex:1;color:var(--text);">The front desk of fees — structures, invoices, payments, receipts, enrollment.</p>
+      </div>
+      <div class="row center gap14" style="border:1px solid var(--line); border-radius:11px; padding:12px 15px;">
+        <div class="ic bg-acct t-acct" style="width:38px;height:38px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19"><use href="#i-chart"></use></svg></div>
+        <div style="flex:none;width:40mm;"><span class="role-chip role-acct chip">Accountant</span></div>
+        <p class="small" style="flex:1;color:var(--text);">The back office — expenses, payroll, Profit &amp; Loss, budget, statements and finance activity.</p>
+      </div>
+      <div class="row center gap14" style="border:1px solid var(--line); border-radius:11px; padding:12px 15px;">
+        <div class="ic bg-disc t-disc" style="width:38px;height:38px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center;"><svg width="19" height="19"><use href="#i-shield"></use></svg></div>
+        <div style="flex:none;width:40mm;"><span class="role-chip role-disc chip">Discipline Master</span></div>
+        <p class="small" style="flex:1;color:var(--text);">Attendance per stream, incidents with severity &amp; sanction, automatic parent notices.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 09 ADMIN ============================== -->
+<section class="page" data-screen-label="09 Administrator">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>The roles · 1 of 6</span></div>
+  <div class="runfoot"><span>The Administrator</span><span class="pg">09</span></div>
+
+  <div class="body-region col" style="gap:13px;">
+    <div class="col gap6"><span class="role-chip role-admin chip" style="align-self:flex-start;">Administrator</span><h2 class="h-section">Sets up the school and keeps it running.</h2></div>
+    <div class="win"><div class="win__bar"><i></i><i></i><i></i></div><img src="shots/admin-dashboard.png" alt="Admin dashboard"></div>
+    <div class="row gap14">
+      <div class="col" style="flex:1; gap:6px;"><div class="shot"><img src="shots/admin-academics.png" alt="Academics"></div><p class="caption">Academics — years, streams, subjects, specialties</p></div>
+      <div class="col" style="flex:1; gap:6px;"><div class="shot"><img src="shots/admin-students.png" alt="Students"></div><p class="caption">Students — records, matricules &amp; ID generation</p></div>
+    </div>
+    <div class="grid3" style="gap:10px 22px; margin-top:auto;">
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-layers"></use></svg></div><div><div class="tt">Academics</div><div class="ds">Years, sections, streams, specialties, subjects &amp; groups.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-users"></use></svg></div><div><div class="tt">Students &amp; users</div><div class="ds">Import from Excel, manage staff accounts &amp; roles.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-id"></use></svg></div><div><div class="tt">Matricules &amp; ID cards</div><div class="ds">Import students' unique matricules and print ID cards in bulk.</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 10 TEACHER ============================== -->
+<section class="page" data-screen-label="10 Teacher">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>The roles · 2 of 6</span></div>
+  <div class="runfoot"><span>The Teacher</span><span class="pg">10</span></div>
+
+  <div class="body-region col" style="gap:13px;">
+    <div class="col gap6"><span class="role-chip role-teacher chip" style="align-self:flex-start;">Teacher</span><h2 class="h-section">Enters marks. Sees who needs help.</h2></div>
+    <div class="win"><div class="win__bar"><i></i><i></i><i></i></div><img src="shots/teacher-marks.png" alt="Enter marks"></div>
+    <div class="row gap14">
+      <div class="col" style="flex:1.1; gap:6px;"><div class="shot"><img src="shots/teacher-stats.png" alt="Teacher statistics"></div><p class="caption">Per-subject statistics, pass rates &amp; gender breakdown</p></div>
+      <div class="col" style="flex:.9;">
+        <div class="flist" style="gap:8px;">
+          <div class="it"><div class="ic bg-teacher t-teacher"><svg><use href="#i-doc"></use></svg></div><div><div class="tt">Marks entry, both sequences</div><div class="ds">Type straight into the grid — it autosaves as you go.</div></div></div>
+          <div class="it"><div class="ic bg-teacher t-teacher"><svg><use href="#i-layers"></use></svg></div><div><div class="tt">Import &amp; export .xlsx</div><div class="ds">Bring marks in from Excel; export a class in one click.</div></div></div>
+          <div class="it"><div class="ic bg-teacher t-teacher"><svg><use href="#i-chart"></use></svg></div><div><div class="tt">Statistics &amp; trends</div><div class="ds">Averages, pass rates and term-on-term trends per subject.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="callout" style="display:flex; gap:12px; align-items:flex-start; margin-top:auto;">
+      <div class="ic bg-teacher t-teacher" style="width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;"><svg width="16" height="16"><use href="#i-wifi"></use></svg></div>
+      <div><div class="tt" style="font-family:var(--serif);font-weight:600;font-size:10.5pt;color:var(--ink);">Mark from anywhere — optionally</div><p class="small" style="margin-top:2px;">Teachers can be given <strong>secure online access</strong> to enter marks remotely, while the rest of the system stays safely on your server.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 11 VP ============================== -->
+<section class="page" data-screen-label="11 Vice-Principal">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>The roles · 3 of 6</span></div>
+  <div class="runfoot"><span>The Vice-Principal</span><span class="pg">11</span></div>
+
+  <div class="body-region col" style="gap:13px;">
+    <div class="col gap6"><span class="role-chip role-vp chip" style="align-self:flex-start;">Vice-Principal / Principal</span><h2 class="h-section">Oversight without chasing paper.</h2></div>
+    <div class="win"><div class="win__bar"><i></i><i></i><i></i></div><img src="shots/vp-marks-report.png" alt="Marks report"></div>
+    <div class="row gap14">
+      <div class="col" style="flex:1; gap:6px;"><div class="shot"><img src="shots/vp-topbottom.png" alt="Top and bottom performers"></div><p class="caption">Top &amp; bottom performers, instantly ranked</p></div>
+      <div class="col" style="flex:1; gap:6px;"><div class="shot"><img src="shots/vp-compliance.png" alt="Teacher compliance"></div><p class="caption">Compliance — exactly which submissions are missing</p></div>
+    </div>
+    <div class="grid3" style="gap:10px 22px; margin-top:auto;">
+      <div class="flist"><div class="it"><div class="ic bg-vp t-vp"><svg><use href="#i-layers"></use></svg></div><div><div class="tt">Mastersheet &amp; marks report</div><div class="ds">Every subject, every student, one screen.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-vp t-vp"><svg><use href="#i-sliders"></use></svg></div><div><div class="tt">Coefficients &amp; thresholds</div><div class="ds">Set weighting and pass rules per stream.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-vp t-vp"><svg><use href="#i-printer"></use></svg></div><div><div class="tt">Report cards &amp; transcripts</div><div class="ds">Generate and print for any class on demand.</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 12 BURSAR ============================== -->
+<section class="page" data-screen-label="12 Bursar">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>The roles · 4 of 6</span></div>
+  <div class="runfoot"><span>The Bursar</span><span class="pg">12</span></div>
+
+  <div class="body-region col" style="gap:13px;">
+    <div class="col gap6"><span class="role-chip role-bursar chip" style="align-self:flex-start;">Bursar</span><h2 class="h-section">The front desk of fees.</h2></div>
+    <div class="win"><div class="win__bar"><i></i><i></i><i></i></div><img src="shots/finance-dashboard.png" alt="Finance dashboard"></div>
+    <div class="row gap14">
+      <div class="col" style="flex:1.25; gap:6px;"><div class="shot"><img src="shots/bursar-invoices.png" alt="Invoices"></div><p class="caption">Invoices with instalments, balances &amp; status</p></div>
+      <div class="col" style="flex:.75;">
+        <div class="flist" style="gap:8px;">
+          <div class="it"><div class="ic bg-bursar t-bursar"><svg><use href="#i-coins"></use></svg></div><div><div class="tt">Fees, invoices &amp; instalments</div><div class="ds">Fee structures, invoices and instalment plans per class.</div></div></div>
+          <div class="it"><div class="ic bg-bursar t-bursar"><svg><use href="#i-receipt"></use></svg></div><div><div class="tt">Payments &amp; printed receipts</div><div class="ds">Record a payment; a branded receipt prints instantly.</div></div></div>
+          <div class="it"><div class="ic bg-bursar t-bursar"><svg><use href="#i-users"></use></svg></div><div><div class="tt">Enrollment &amp; transfer</div><div class="ds">Register and enroll students; handle transfers; track overdue.</div></div></div>
+        </div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:auto;">Prefer to start smaller? InScola can run as a <strong>finance-only</strong> deployment (the bursary alone) or a <strong>school-only</strong> deployment (academics without finance).</p>
+  </div>
+</section>
+
+<!-- ============================== 13 ACCOUNTANT ============================== -->
+<section class="page" data-screen-label="13 Accountant">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>The roles · 5 of 6</span></div>
+  <div class="runfoot"><span>The Accountant</span><span class="pg">13</span></div>
+
+  <div class="body-region col" style="gap:13px;">
+    <div class="col gap6"><span class="role-chip role-acct chip" style="align-self:flex-start;">Accountant</span><h2 class="h-section">The school's full financial picture.</h2></div>
+    <p class="small" style="max-width:158mm;margin-top:-4px;">Where the bursar handles fees at the counter, the accountant sees the whole ledger — expenses, payroll, profit &amp; loss, budget and statements.</p>
+    <div class="win"><div class="win__bar"><i></i><i></i><i></i></div><img src="shots/acct-pnl.png" alt="Profit and loss / budget"></div>
+    <div class="row gap14">
+      <div class="col" style="flex:1; gap:6px;"><div class="shot"><img src="shots/acct-expenses.png" alt="Expenses"></div><p class="caption">Expenses by category — payroll auto-posted</p></div>
+      <div class="col" style="flex:1; gap:6px;"><div class="shot"><img src="shots/acct-payroll.png" alt="Payroll"></div><p class="caption">Staff payroll — allowances, deductions, net</p></div>
+    </div>
+    <div class="grid3" style="gap:10px 22px; margin-top:auto;">
+      <div class="flist"><div class="it"><div class="ic bg-acct t-acct"><svg><use href="#i-wallet"></use></svg></div><div><div class="tt">Expenses &amp; budget</div><div class="ds">Log every expense by category; Profit &amp; Loss and budget variance at a glance.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-acct t-acct"><svg><use href="#i-coins"></use></svg></div><div><div class="tt">Payroll &amp; payslips</div><div class="ds">Locked monthly runs with CNPS, tax &amp; net — printed payslips.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-acct t-acct"><svg><use href="#i-chart"></use></svg></div><div><div class="tt">Statements &amp; activity</div><div class="ds">Collections by stream, section or level; fee reports; full finance log.</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 14 DISCIPLINE ============================== -->
+<section class="page" data-screen-label="14 Discipline">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>The roles · 6 of 6</span></div>
+  <div class="runfoot"><span>Discipline &amp; Attendance</span><span class="pg">14</span></div>
+
+  <div class="body-region col" style="gap:13px;">
+    <div class="col gap6"><span class="role-chip role-disc chip" style="align-self:flex-start;">Discipline Master</span><h2 class="h-section">A clear record of conduct.</h2></div>
+    <div class="win"><div class="win__bar"><i></i><i></i><i></i></div><img src="shots/disc-attendance.png" alt="Take attendance"></div>
+    <div class="row gap14">
+      <div class="col" style="flex:1.25; gap:6px;"><div class="shot"><img src="shots/disc-incident.png" alt="Disciplinary incidents"></div><p class="caption">Incidents logged with severity, sanction &amp; parent flag</p></div>
+      <div class="col" style="flex:.75;">
+        <div class="flist" style="gap:8px;">
+          <div class="it"><div class="ic bg-disc t-disc"><svg><use href="#i-check"></use></svg></div><div><div class="tt">Attendance per stream</div><div class="ds">Mark present, absent or late in seconds, per session.</div></div></div>
+          <div class="it"><div class="ic bg-disc t-disc"><svg><use href="#i-shield"></use></svg></div><div><div class="tt">Incident register</div><div class="ds">Type, severity, sanction and notes — properly recorded.</div></div></div>
+          <div class="it"><div class="ic bg-disc t-disc"><svg><use href="#i-arrow"></use></svg></div><div><div class="tt">Feeds the report card</div><div class="ds">Conduct on the report card comes straight from this record.</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 15 NEW SCHOOL YEAR ============================== -->
+<section class="page" data-screen-label="15 New school year">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Year-end, without the dread</span></div>
+  <div class="runfoot"><span>Into a new year in minutes</span><span class="pg">15</span></div>
+
+  <div class="body-region col" style="gap:14px;">
+    <div class="col" style="gap:9px; max-width:158mm;">
+      <span class="eyebrow">The new academic year</span>
+      <h2 class="h-title">Into a new year in minutes — not weeks.</h2>
+      <p class="body-text">When the year turns, most schools rebuild everything from scratch. InScola <strong>copies it forward</strong> — last year becomes the starting point for this one, so you update rather than re-enter.</p>
+    </div>
+    <div class="win"><div class="win__bar"><i></i><i></i><i></i></div><img src="shots/admin-promotion.png" alt="Promotion / year rollover"></div>
+    <div class="grid2" style="gap:11px 26px; margin-top:2px;">
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-layers"></use></svg></div><div><div class="tt">Structure copied forward</div><div class="ds">Sections, streams, subjects and coefficients roll into the new year, ready to tweak.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-coins"></use></svg></div><div><div class="tt">Fee structures carried over</div><div class="ds">Last year's fee plans appear in the new year — adjust the amounts and you're done.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-refresh"></use></svg></div><div><div class="tt">One-click promotion</div><div class="ds">Promote a class to the next; repeat or hold individuals; graduate finalists.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-wallet"></use></svg></div><div><div class="tt">Balances follow the student</div><div class="ds">Any unpaid balance is carried forward automatically — debt never gets lost between years.</div></div></div></div>
+    </div>
+    <div class="callout indigo" style="margin-top:auto;">
+      <div class="k">And history is kept</div>
+      <p class="body-text" style="color:var(--ink);">Each previous-year enrollment stays intact, so last year's report cards and statements remain exactly as they were — for the records, and for any parent who asks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 16 DOCUMENTS ============================== -->
+<section class="page" data-screen-label="16 Documents">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Branded output</span></div>
+  <div class="runfoot"><span>Documents that carry your brand</span><span class="pg">16</span></div>
+
+  <div class="body-region col" style="gap:14px;">
+    <div class="col" style="gap:9px; max-width:155mm;">
+      <span class="eyebrow">Everything prints, properly</span>
+      <h2 class="h-title">Documents that carry your school's name.</h2>
+      <p class="lead">Your header, your logo, your motto — on every page a parent or examiner will ever see. The report card follows the <strong>official Ministry of Secondary Education format</strong>.</p>
+    </div>
+    <div class="grid3" style="gap:14px; align-items:start;">
+      <div class="col gap6"><div class="doc"><img src="shots/sample-report-card.png" alt="Report card"></div><p class="caption">Ministry-standard report card</p></div>
+      <div class="col gap6"><div class="doc"><img src="shots/vp-transcript.png" alt="Transcript"></div><p class="caption">Transcript — O-Level &amp; A-Level</p></div>
+      <div class="col gap14">
+        <div class="col gap6"><div class="doc"><img src="shots/admin-id-card.png" alt="ID card"></div><p class="caption">Student ID card</p></div>
+        <div class="col gap6"><div class="doc"><img src="shots/bursar-receipts.png" alt="Payment receipt"></div><p class="caption">Payment receipt</p></div>
+      </div>
+    </div>
+    <div class="row gap14" style="margin-top:auto; align-items:stretch;">
+      <div class="col gap6" style="flex:1.35;"><div class="doc"><img src="shots/acct-payslip.png" alt="Staff payslip"></div><p class="caption">Staff payslip — allowances, deductions, CNPS &amp; net</p></div>
+      <div class="col gap10" style="flex:1;">
+        <div class="callout" style="flex:1;"><div class="k">Mock results</div><p class="small" style="color:var(--text);">Regional mock slips in GCE A–U grades, ready for the notice board.</p></div>
+        <div class="callout" style="flex:1;"><div class="k">Class lists</div><p class="small" style="color:var(--text);">Clean printable class &amp; enrollment lists for every stream.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 17 BILINGUAL ============================== -->
+<section class="page" data-screen-label="17 Bilingual">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>One click, two languages</span></div>
+  <div class="runfoot"><span>Bilingual by design</span><span class="pg">17</span></div>
+
+  <div class="body-region col" style="gap:15px;">
+    <div class="row between center">
+      <div class="col" style="gap:9px; max-width:120mm;">
+        <span class="eyebrow">English &amp; French</span>
+        <h2 class="h-title">Both languages. One click.</h2>
+        <p class="lead">Anglophone and Francophone sub-systems under one roof. The interface and every printed document switch language instantly — no separate install, no second product.</p>
+      </div>
+      <div class="ic bg-admin t-admin" style="width:64px;height:64px;border-radius:16px;flex:none;display:flex;align-items:center;justify-content:center;"><svg width="34" height="34"><use href="#i-globe"></use></svg></div>
+    </div>
+    <div class="callout" style="padding:6px 18px;">
+      <div class="frline" style="border-bottom:2px solid var(--line-2);"><span class="en" style="color:var(--muted);font-size:8pt;letter-spacing:.12em;text-transform:uppercase;font-weight:700;">English</span><span class="fr" style="font-style:normal;color:var(--muted);font-size:8pt;letter-spacing:.12em;text-transform:uppercase;font-weight:700;">French</span><span class="ctx">Context</span></div>
+      <div class="frline"><span class="en">Sequence</span><span class="fr">Séquence</span><span class="ctx">Assessment</span></div>
+      <div class="frline"><span class="en">Mark (out of 20)</span><span class="fr">Note (sur 20)</span><span class="ctx">Grading</span></div>
+      <div class="frline"><span class="en">Average</span><span class="fr">Moyenne</span><span class="ctx">Results</span></div>
+      <div class="frline"><span class="en">Report card</span><span class="fr">Bulletin</span><span class="ctx">Document</span></div>
+      <div class="frline"><span class="en">Term</span><span class="fr">Trimestre</span><span class="ctx">Calendar</span></div>
+      <div class="frline"><span class="en">Conduct</span><span class="fr">Conduite</span><span class="ctx">Discipline</span></div>
+      <div class="frline"><span class="en">Class council</span><span class="fr">Conseil de classe</span><span class="ctx">Decision</span></div>
+      <div class="frline" style="border-bottom:none;"><span class="en">Passed</span><span class="fr">Admis</span><span class="ctx">Outcome</span></div>
+    </div>
+    <p class="small" style="margin-top:auto;">One school may run Anglophone and Francophone streams side by side — each printing in its own language, from the same InScola.</p>
+  </div>
+</section>
+
+<!-- ============================== 18 NOTIFICATIONS ============================== -->
+<section class="page" data-screen-label="18 Notifications">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Parents in the loop</span></div>
+  <div class="runfoot"><span>Notifications &amp; credits</span><span class="pg">18</span></div>
+
+  <div class="body-region col" style="gap:13px;">
+    <div class="col" style="gap:8px; max-width:158mm;">
+      <span class="eyebrow">Automatic parent messaging</span>
+      <h2 class="h-title">Parents hear from the school — automatically.</h2>
+      <p class="body-text">Payments, absences, discipline and report cards each trigger an SMS or email to the guardian on file — using message templates you control, in English or French.</p>
+    </div>
+    <div class="win"><div class="win__bar"><i></i><i></i><i></i></div><img src="shots/admin-notif-templates.png" alt="Notification templates"></div>
+    <div class="row gap10" style="align-items:stretch;">
+      <div class="col" style="flex:1; gap:6px;"><div class="shot" style="background:#fff;"><img src="shots/bursar-payment-email.png" alt="Payment email"></div><p class="caption">Payment received — email</p></div>
+      <div class="col" style="flex:1; gap:6px;"><div class="shot" style="background:#fff;"><img src="shots/fee-overdue-email.png" alt="Overdue fees email"></div><p class="caption">Overdue fees — email</p></div>
+      <div class="col" style="flex:1; gap:6px;"><div class="shot" style="background:#fff;"><img src="shots/disc-email.png" alt="Discipline email"></div><p class="caption">Discipline incident — email</p></div>
+      <div class="col" style="flex:.62; gap:6px;"><div class="shot" style="background:#fff;"><img src="shots/bursar-sms.png" alt="Payment SMS"></div><p class="caption">Payment — SMS</p></div>
+    </div>
+    <div class="callout indigo" style="display:flex; gap:12px; align-items:flex-start; margin-top:auto;">
+      <div class="ic" style="width:32px;height:32px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;background:#fff;color:var(--indigo);"><svg width="17" height="17"><use href="#i-gauge"></use></svg></div>
+      <div><div class="tt" style="font-family:var(--serif);font-weight:600;font-size:11pt;color:var(--ink);">Credits &amp; top-up — full transparency</div><p class="small" style="margin-top:2px;color:var(--ink);">Notifications run on a transparent credit system: see exactly how many SMS &amp; email credits you've used, and top up when you choose. No surprise bills, no hidden metering.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 19 SECURITY ============================== -->
+<section class="page" data-screen-label="19 Security">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>Trust &amp; ownership</span></div>
+  <div class="runfoot"><span>Security &amp; ownership</span><span class="pg">19</span></div>
+
+  <div class="body-region col" style="gap:18px;">
+    <div class="col" style="gap:10px; max-width:155mm;">
+      <span class="eyebrow">Built to be trusted with student records</span>
+      <h2 class="h-title">Who sees what — and who changed it.</h2>
+      <p class="lead">Student records, fee data and staff payroll are sensitive. InScola treats them that way.</p>
+    </div>
+    <div class="grid2" style="gap:13px 26px;">
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-lock"></use></svg></div><div><div class="tt">Role-based access</div><div class="ds">Each person signs in to their own workspace and sees only what their role needs — a teacher never sees payroll.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-eye"></use></svg></div><div><div class="tt">Audit trail</div><div class="ds">Key actions are logged — who changed a mark, recorded a payment, or edited a record, and when.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-db"></use></svg></div><div><div class="tt">Backups you control</div><div class="ds">Regular backups to your own drive. Restoring is simple and entirely in your hands.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-server"></use></svg></div><div><div class="tt">On-premise, no data sharing</div><div class="ds">Nothing is sent to a third party. Your data never leaves the building unless you choose.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-wifioff"></use></svg></div><div><div class="tt">Works offline</div><div class="ds">No dependence on an internet link that may be slow, costly, or down.</div></div></div></div>
+      <div class="flist"><div class="it"><div class="ic bg-admin t-admin"><svg><use href="#i-id"></use></svg></div><div><div class="tt">Verifiable documents</div><div class="ds">Report cards carry a QR code, so a printed copy can be checked against the record.</div></div></div></div>
+    </div>
+    <div class="callout indigo" style="margin-top:auto;">
+      <div class="k">In one line</div>
+      <p class="bigq">Your school owns the system, the data, and the backups — and can see exactly who did what.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 20 FEATURE MATRIX ============================== -->
+<section class="page" data-screen-label="20 Feature matrix">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>At a glance</span></div>
+  <div class="runfoot"><span>Everything InScola does</span><span class="pg">20</span></div>
+
+  <div class="body-region col" style="gap:13px;">
+    <div class="col" style="gap:7px;"><span class="eyebrow">The full picture</span><h2 class="h-title">Everything InScola does.</h2></div>
+    <div class="grid2" style="gap:6px 26px;">
+      <div class="col gap6">
+        <div class="row center gap10" style="color:var(--indigo);"><svg width="16" height="16"><use href="#i-layers"></use></svg><span style="font-family:var(--serif);font-weight:600;font-size:11pt;color:var(--ink);">Academic</span></div>
+        <ul class="small" style="margin:0;padding-left:18px;line-height:1.75;color:var(--text);">
+          <li>School years, sections, streams &amp; specialties</li>
+          <li>Subjects, subject groups &amp; coefficients</li>
+          <li>Marks entry by sequence &amp; term, autosave</li>
+          <li>Excel import / export of marks</li>
+          <li>Mastersheets, marks reports &amp; thresholds</li>
+          <li>Top / bottom performers &amp; statistics</li>
+          <li>One-click promotion &amp; year rollover</li>
+        </ul>
+      </div>
+      <div class="col gap6">
+        <div class="row center gap10" style="color:var(--indigo);"><svg width="16" height="16"><use href="#i-printer"></use></svg><span style="font-family:var(--serif);font-weight:600;font-size:11pt;color:var(--ink);">Documents</span></div>
+        <ul class="small" style="margin:0;padding-left:18px;line-height:1.75;color:var(--text);">
+          <li>Report cards with QR verification</li>
+          <li>O-Level &amp; A-Level transcripts</li>
+          <li>GCE-style mock results (A–U)</li>
+          <li>Student ID cards &amp; class lists</li>
+          <li>Payment receipts &amp; invoices</li>
+          <li>Staff payslips</li>
+        </ul>
+      </div>
+      <div class="col gap6">
+        <div class="row center gap10" style="color:var(--indigo);"><svg width="16" height="16"><use href="#i-coins"></use></svg><span style="font-family:var(--serif);font-weight:600;font-size:11pt;color:var(--ink);">Finance</span></div>
+        <ul class="small" style="margin:0;padding-left:18px;line-height:1.75;color:var(--text);">
+          <li>Fee structures &amp; instalment plans</li>
+          <li>Invoices, payments &amp; receipts</li>
+          <li>Overdue tracking &amp; collection trends</li>
+          <li>Expenses, Profit &amp; Loss &amp; budget variance</li>
+          <li>Payroll, payslips &amp; statements</li>
+          <li>Finance-only or school-only deployment</li>
+        </ul>
+      </div>
+      <div class="col gap6">
+        <div class="row center gap10" style="color:var(--indigo);"><svg width="16" height="16"><use href="#i-shield"></use></svg><span style="font-family:var(--serif);font-weight:600;font-size:11pt;color:var(--ink);">Conduct, comms &amp; system</span></div>
+        <ul class="small" style="margin:0;padding-left:18px;line-height:1.75;color:var(--text);">
+          <li>Attendance &amp; incident register</li>
+          <li>SMS &amp; email notifications + templates</li>
+          <li>Transparent notification credits &amp; top-up</li>
+          <li>Role-based accounts &amp; audit trail</li>
+          <li>Wired or Wi-Fi access; optional online marks entry</li>
+          <li>Bilingual EN / FR throughout</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:auto; display:flex; gap:24px; align-items:center;">
+      <div><span class="n" style="font-family:var(--serif);font-weight:700;font-size:18pt;color:var(--indigo);">6</span> <span class="small" style="text-transform:uppercase;letter-spacing:.1em;font-weight:600;">Roles</span></div>
+      <div><span class="n" style="font-family:var(--serif);font-weight:700;font-size:18pt;color:var(--indigo);">2</span> <span class="small" style="text-transform:uppercase;letter-spacing:.1em;font-weight:600;">Languages</span></div>
+      <div><span class="n" style="font-family:var(--serif);font-weight:700;font-size:18pt;color:var(--indigo);">1</span> <span class="small" style="text-transform:uppercase;letter-spacing:.1em;font-weight:600;">Server, in your school</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 21 WHY SWITCH ============================== -->
+<section class="page" data-screen-label="21 Why switch">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>The comparison</span></div>
+  <div class="runfoot"><span>Why schools switch</span><span class="pg">21</span></div>
+
+  <div class="body-region col" style="gap:14px;">
+    <div class="col" style="gap:8px; max-width:155mm;"><span class="eyebrow">Honest comparison</span><h2 class="h-title">Why schools switch to InScola.</h2></div>
+    <table class="tbl" style="font-size:9pt;">
+      <thead><tr><th style="width:26%;"></th><th>By hand / Excel</th><th>Generic software</th><th style="color:var(--indigo);">InScola</th></tr></thead>
+      <tbody>
+        <tr><td class="feat">All-in-one</td><td class="no">Separate tools</td><td class="no">Academics or finance</td><td class="yes">Marks, fees, conduct &amp; payroll</td></tr>
+        <tr><td class="feat">Everything connected</td><td class="no">Re-typed by hand</td><td class="no">Siloed modules</td><td class="yes">Feeds each other automatically</td></tr>
+        <tr><td class="feat">Mock results / GCE</td><td class="no">Hand-compiled</td><td class="no">Not supported</td><td class="yes">A–U, built in</td></tr>
+        <tr><td class="feat">Transcripts</td><td class="no">Typed per cell</td><td class="no">Wrong format</td><td class="yes">O-Level &amp; A-Level, official</td></tr>
+        <tr><td class="feat">Grading system</td><td class="no">Manual averages</td><td class="no">“GPA”, equal subjects</td><td class="yes">/20, sequences, coefficients</td></tr>
+        <tr><td class="feat">Language</td><td class="no">Whatever you type</td><td class="no">English only</td><td class="yes">English &amp; French</td></tr>
+        <tr><td class="feat">New-year setup</td><td class="no">Rebuilt each year</td><td class="no">Manual re-entry</td><td class="yes">Copied forward, then tweak</td></tr>
+        <tr><td class="feat">Where data lives</td><td class="no">One fragile laptop</td><td class="no">A server abroad</td><td class="yes">Your own server</td></tr>
+        <tr><td class="feat">Cost model</td><td class="no">Hidden labour cost</td><td class="no">Monthly, forever</td><td class="yes">One annual licence — yours</td></tr>
+        <tr><td class="feat">If you stop paying</td><td class="no">—</td><td class="no">Data locked / gone</td><td class="yes">Data stays with you</td></tr>
+      </tbody>
+    </table>
+    <div class="callout indigo" style="margin-top:auto;">
+      <p class="body-text" style="color:var(--ink);">A principal who has seen the things their current system can't do, watched the parts talk to each other, and heard that the data stays in the building they own — is no longer comparing vendors. They're asking <strong>when you can install it.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 22 GETTING STARTED ============================== -->
+<section class="page" data-screen-label="22 Getting started">
+  <div class="runhead"><span class="brandmini"><svg><use href="#cap"></use></svg><b>InScola</b></span><span>From decision to live</span></div>
+  <div class="runfoot"><span>Getting started</span><span class="pg">22</span></div>
+
+  <div class="body-region row" style="gap:26px;">
+    <div class="col" style="flex:1.1; gap:14px;">
+      <div class="col" style="gap:9px;"><span class="eyebrow">Getting started</span><h2 class="h-title">Live in a few days.</h2><p class="body-text">Most schools are running on InScola within a week — often before the next sequence.</p></div>
+      <div class="timeline" style="margin-top:4px;">
+        <div class="tl-item"><div class="tl-num">1</div><div><div class="tl-tt">Install on your server</div><div class="tl-ds">We set InScola up on a machine in your school and configure the network.</div></div></div>
+        <div class="tl-item"><div class="tl-num">2</div><div><div class="tl-tt">Import your students</div><div class="tl-ds">Bring your student list in from Excel; matricules and ID cards generate in bulk.</div></div></div>
+        <div class="tl-item"><div class="tl-num">3</div><div><div class="tl-tt">Set up structure &amp; fees</div><div class="tl-ds">Streams, subjects, coefficients, fee structures and thresholds — to match your school.</div></div></div>
+        <div class="tl-item"><div class="tl-num">4</div><div><div class="tl-tt">Train your staff</div><div class="tl-ds">A single day is usually enough — the workspaces are built around each role.</div></div></div>
+        <div class="tl-item soft"><div class="tl-num">5</div><div><div class="tl-tt">Go live</div><div class="tl-ds">Teachers enter marks, the bursary records fees, and report cards print on demand.</div></div></div>
+      </div>
+    </div>
+    <div class="col" style="flex:.9; gap:14px;">
+      <div class="callout" style="background:var(--ink); color:#fff; border:none;">
+        <div class="k" style="color:#a9b0ff;">What we'll need from you</div>
+        <div class="flist" style="gap:11px; margin-top:8px;">
+          <div class="it"><div class="ic" style="background:rgba(255,255,255,.1);color:#fff;"><svg width="16" height="16"><use href="#i-server"></use></svg></div><div><div class="tt" style="color:#fff;">A computer to serve as the server</div><div class="ds" style="color:#bcc1de;">Plus a small UPS for power cuts.</div></div></div>
+          <div class="it"><div class="ic" style="background:rgba(255,255,255,.1);color:#fff;"><svg width="16" height="16"><use href="#i-users"></use></svg></div><div><div class="tt" style="color:#fff;">Your student &amp; staff lists</div><div class="ds" style="color:#bcc1de;">In any spreadsheet — we handle the rest.</div></div></div>
+          <div class="it"><div class="ic" style="background:rgba(255,255,255,.1);color:#fff;"><svg width="16" height="16"><use href="#i-book"></use></svg></div><div><div class="tt" style="color:#fff;">Your academic &amp; fee structure</div><div class="ds" style="color:#bcc1de;">Streams, coefficients and what each class pays.</div></div></div>
+          <div class="it"><div class="ic" style="background:rgba(255,255,255,.1);color:#fff;"><svg width="16" height="16"><use href="#i-id"></use></svg></div><div><div class="tt" style="color:#fff;">Your logo &amp; school header</div><div class="ds" style="color:#bcc1de;">So every document carries your brand.</div></div></div>
+        </div>
+      </div>
+      <div class="callout indigo">
+        <div class="k">Support</div>
+        <p class="small" style="color:var(--ink);">Setup, training and ongoing support are included. You're never left alone with the software.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 23 BACK COVER ============================== -->
+<section class="page cover" data-screen-label="23 See it">
+  <div class="grid-tex"></div>
+  <div class="glow" style="width:300px;height:300px;background:#5b4ff0;opacity:.32;left:-70px;top:-50px;"></div>
+  <div class="glow" style="width:240px;height:240px;background:#2a2170;opacity:.5;right:-60px;bottom:60px;"></div>
+  <div class="page__inner col between">
+    <div class="lockup" style="--cap:34px;--word:24px;color:#fff;"><svg><use href="#cap"></use></svg><span class="word">InScola</span></div>
+    <div class="col" style="gap:22px; max-width:175mm;">
+      <span class="eyebrow on-dark">See it for yourself</span>
+      <h2 class="h-display" style="color:#fff; font-size:40pt; line-height:1.04;">Book a live demo — at your school.</h2>
+      <p class="lead" style="color:#c7cbe6; max-width:150mm;">Nothing explains InScola like watching it do what your current system can't — with your own school's example in hand. We'll come to you.</p>
+      <div class="row" style="gap:26px; align-items:center; margin-top:8px;">
+        <div class="col gap10" style="flex:1;">
+          <div class="row center gap14" style="color:#fff;"><div class="ic" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" style="color:#fff;"><use href="#i-bell"></use></svg></div><span style="font-family:var(--serif);font-weight:500;font-size:13pt;" data-field="phone">+237 6&nbsp;__&nbsp;__&nbsp;__&nbsp;__</span></div>
+          <div class="row center gap14" style="color:#fff;"><div class="ic" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" style="color:#fff;"><use href="#i-mail"></use></svg></div><span style="font-family:var(--serif);font-weight:500;font-size:13pt;" data-field="email">hello@inscola.&nbsp;___</span></div>
+          <div class="row center gap14" style="color:#fff;"><div class="ic" style="width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" style="color:#fff;"><use href="#i-globe"></use></svg></div><span style="font-family:var(--serif);font-weight:500;font-size:13pt;" data-field="web">www.inscola.&nbsp;___</span></div>
+        </div>
+        <div class="row center gap14" style="flex:none; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16); border-radius:14px; padding:14px 16px;">
+          <div style="width:96px;height:96px;border-radius:10px;background:#fff;padding:7px;flex:none;"><img src="shots/yt-qr.png" alt="Scan to watch the InScola demo on YouTube" style="display:block;width:100%;height:100%;"></div>
+          <div class="col" style="gap:4px; max-width:42mm;"><span class="eyebrow on-dark" style="color:#a9b0ff;">Watch the demo</span><span style="color:#fff;font-family:var(--serif);font-weight:500;font-size:11pt;line-height:1.25;">Scan to see InScola in action on YouTube.</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="row between center" style="border-top:1px solid rgba(255,255,255,.14); padding-top:14px;">
+      <p style="color:#fff; font-family:var(--serif); font-weight:500; font-size:11pt;">Empowering Education, Simplifying Management</p>
+      <p class="small" style="color:#9aa0c4;">English &amp; French · Made for Cameroon</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#1b1f3b"/>
+    <g fill="#fff" transform="translate(50 46) scale(.34) translate(-196 -95)">
+      <path d="M150 86 C150 86 168 98 196 98 C224 98 242 86 242 86 L242 116 C242 130 222 140 196 140 C170 140 150 130 150 116 Z"/>
+      <path d="M196 50 L268 84 L196 118 L124 84 Z"/>
+      <circle cx="196" cy="84" r="7"/>
+      <path d="M196 84 C150 96 132 100 130 126" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="130" cy="130" r="6"/>
+      <path d="M124 134 L136 134 L141 162 L119 162 Z"/>
+    </g>
+    <text x="50" y="78" text-anchor="middle" fill="#fff" font-family="Poppins,sans-serif" font-weight="600" font-size="11">InScola</text>
+  </svg>
+</template>
+
+<script>
+(async () => {
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  @page { margin: 0.5cm; }\n  html, body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }\n  section, article, figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>
