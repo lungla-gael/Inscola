@@ -91,7 +91,7 @@
       <div class="hero-actions" style="margin-top:30px;">
         <a class="btn btn-primary" href="#contact"><span data-i18n="hero.cta_demo">Request a Demo</span><svg><use href="#i-arrow"></use></svg></a>
         <a class="btn btn-ghost" href="#demo"><svg><use href="#i-play"></use></svg><span data-i18n="hero.cta_watch">Watch 3-min Demo</span></a>
-        <a id="hero-dl-btn" class="btn btn-ghost" href="downloads/Inscola-capabilities.pdf" download="Inscola-capabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="hero.cta_dl">Capabilities Document</span></a>
+        <a id="hero-dl-btn" class="btn btn-ghost" href="downloads/InscolaCapabilities.pdf" download="InscolaCapabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="hero.cta_dl">Capabilities Document</span></a>
       </div>
     </div>
     <div class="browser reveal" style="margin-top:54px;">
@@ -346,7 +346,7 @@
       <div class="dl-doc">
         <div class="dl-thumb"><img src="shots/sample-report-card.png" alt="Capabilities document"></div>
         <div class="dl-actions">
-          <a id="dl-section-btn" class="btn btn-dl" href="downloads/Inscola-capabilities.pdf" download="Inscola-capabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="dl.btn">Download Document</span></a>
+          <a id="dl-section-btn" class="btn btn-dl" href="downloads/InscolaCapabilities.pdf" download="InscolaCapabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="dl.btn">Download Document</span></a>
           <span class="dl-meta" data-i18n="dl.meta">Self-contained file · English</span>
         </div>
       </div>
@@ -728,10 +728,10 @@ function setLang(lang) {
   // Swap capabilities document to the language-appropriate PDF
   var dlHref = lang === 'fr'
     ? 'downloads/InScola — Fonctionnalités.pdf'
-    : 'downloads/Inscola-capabilities.pdf';
+    : 'downloads/InscolaCapabilities.pdf';
   var dlName = lang === 'fr'
     ? 'InScola — Fonctionnalités.pdf'
-    : 'Inscola-capabilities.pdf';
+    : 'InscolaCapabilities.pdf';
   ['hero-dl-btn', 'dl-section-btn'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) { el.href = dlHref; el.download = dlName; }
