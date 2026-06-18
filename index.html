@@ -279,11 +279,10 @@
       <p class="lead" style="margin-top:14px;" data-i18n="demo.lead">A short guided tour of the whole system: report cards, mock results, finance, transcripts and more — the fastest way to understand what InScola brings to your school.</p>
     </div>
     <div style="max-width:880px;margin:0 auto;">
-      <div class="video video-soon reveal" id="videoLink" style="display:block;">
+      <div class="video reveal" id="videoLink" style="display:block;">
         <img src="shots/finance-dashboard.png" alt="InScola demo video">
         <div class="play">
-          <span class="pbtn"><svg><use href="#i-cal"></use></svg></span>
-          <span class="vlabel" data-i18n="demo.soon">Demo video — coming soon</span>
+          <span class="pbtn"><svg><use href="#i-play"></use></svg></span>
         </div>
       </div>
     </div>
@@ -299,38 +298,37 @@
       <p class="lead" style="margin-top:14px;" data-i18n="vg.lead">Quick clips of the features that matter most — each under two minutes. Tap any one to watch.</p>
     </div>
     <div class="vgrid">
-      <div class="vcard reveal vcard-soon" data-video="report-card">
+      <div class="vcard reveal" data-video="report-card">
         <span class="vthumb"><img src="shots/sample-report-card.png" alt="Generating a report card">
-          <span class="pp"><span><svg><use href="#i-cal"></use></svg></span></span><span class="dur" data-i18n="vg.1.dur">Coming soon</span></span>
+          <span class="pp"><span><svg><use href="#i-play"></use></svg></span></span></span>
         <span class="vbody"><span class="vtag" data-i18n="vg.1.tag">Report cards</span><h4 data-i18n="vg.1.h4">A full class, generated in seconds</h4><p data-i18n="vg.1.p">Watch a whole stream's report cards built and ready to print — averages, ranks and conduct all computed.</p></span>
       </div>
-      <div class="vcard reveal vcard-soon" data-video="mock-results">
+      <div class="vcard reveal" data-video="mock-results">
         <span class="vthumb"><img src="shots/admin-mock-results.png" alt="Computing GCE mock results">
-          <span class="pp"><span><svg><use href="#i-cal"></use></svg></span></span><span class="dur" data-i18n="vg.2.dur">Coming soon</span></span>
+          <span class="pp"><span><svg><use href="#i-play"></use></svg></span></span></span>
         <span class="vbody"><span class="vtag" data-i18n="vg.2.tag">Mock results</span><h4 data-i18n="vg.2.h4">Marks into GCE grades, A–U</h4><p data-i18n="vg.2.p">See how entered marks turn into official GCE letter grades, ranked by papers passed.</p></span>
       </div>
-      <div class="vcard reveal vcard-soon" data-video="fees">
+      <div class="vcard reveal" data-video="fees">
         <span class="vthumb"><img src="shots/bursar-receipts.png" alt="Recording a fee payment">
-          <span class="pp"><span><svg><use href="#i-cal"></use></svg></span></span><span class="dur" data-i18n="vg.3.dur">Coming soon</span></span>
+          <span class="pp"><span><svg><use href="#i-play"></use></svg></span></span></span>
         <span class="vbody"><span class="vtag" data-i18n="vg.3.tag">Finance</span><h4 data-i18n="vg.3.h4">Record a payment, print a receipt</h4><p data-i18n="vg.3.p">From recording a fee to a branded receipt and an automatic SMS to the parent.</p></span>
       </div>
-      <div class="vcard reveal vcard-soon" data-video="transcripts">
+      <div class="vcard reveal" data-video="transcripts">
         <span class="vthumb"><img src="shots/vp-transcript.png" alt="Producing a transcript">
-          <span class="pp"><span><svg><use href="#i-cal"></use></svg></span></span><span class="dur" data-i18n="vg.4.dur">Coming soon</span></span>
+          <span class="pp"><span><svg><use href="#i-play"></use></svg></span></span></span>
         <span class="vbody"><span class="vtag" data-i18n="vg.4.tag">Transcripts</span><h4 data-i18n="vg.4.h4">O-Level &amp; A-Level transcripts</h4><p data-i18n="vg.4.p">Pull a multi-year transcript from a student's academic history and print it.</p></span>
       </div>
-      <div class="vcard reveal vcard-soon" data-video="id-cards">
+      <div class="vcard reveal" data-video="id-cards">
         <span class="vthumb"><img src="shots/admin-students.png" alt="Generating ID cards">
-          <span class="pp"><span><svg><use href="#i-cal"></use></svg></span></span><span class="dur" data-i18n="vg.5.dur">Coming soon</span></span>
+          <span class="pp"><span><svg><use href="#i-play"></use></svg></span></span></span>
         <span class="vbody"><span class="vtag" data-i18n="vg.5.tag">Student records</span><h4 data-i18n="vg.5.h4">Bulk matricules &amp; ID cards</h4><p data-i18n="vg.5.p">Import a class, assign matricules and generate printable ID cards in one pass.</p></span>
       </div>
-      <div class="vcard reveal vcard-soon" data-video="new-year">
+      <div class="vcard reveal" data-video="new-year">
         <span class="vthumb"><img src="shots/admin-promotion.png" alt="Rolling into a new school year">
-          <span class="pp"><span><svg><use href="#i-cal"></use></svg></span></span><span class="dur" data-i18n="vg.6.dur">Coming soon</span></span>
+          <span class="pp"><span><svg><use href="#i-play"></use></svg></span></span></span>
         <span class="vbody"><span class="vtag" data-i18n="vg.6.tag">New school year</span><h4 data-i18n="vg.6.h4">Promote a whole school in clicks</h4><p data-i18n="vg.6.p">Carry structure, fees and balances forward, then promote classes into the new year.</p></span>
       </div>
     </div>
-    <p class="center muted reveal" style="font-size:13px;margin-top:26px;" data-i18n="vg.note">These walkthroughs are in production — check back soon to watch them.</p>
   </div>
 </section>
 
@@ -466,6 +464,14 @@
   </div>
 </footer>
 
+<!-- ============ VIDEO MODAL ============ -->
+<div id="vmodal" class="vmodal" role="dialog" aria-modal="true">
+  <div class="vmodal-inner">
+    <button class="vmodal-close" aria-label="Close video">&times;</button>
+    <video id="vplayer" controls playsinline preload="none"></video>
+  </div>
+</div>
+
 <script>
 // ---- Translations ----
 const T = {
@@ -525,22 +531,20 @@ const T = {
     'who.p': 'InScola is designed for Cameroonian secondary schools with <em>hundreds — thousands of students</em>, teaching in English, French, or both. If your school has Form 1 through Upper Sixth, examination classes, a finance office, and teachers who enter marks — <em>InScola was built for you.</em>',
     'demo.eyebrow': 'Capabilities overview', 'demo.h2': 'See everything InScola does — in three minutes.',
     'demo.lead': 'A short guided tour of the whole system: report cards, mock results, finance, transcripts and more — the fastest way to understand what InScola brings to your school.',
-    'demo.soon': 'Demo video — coming soon',
     'vg.eyebrow': 'Watch it work', 'vg.h2': 'Short videos of what InScola delivers.',
     'vg.lead': 'Quick clips of the features that matter most — each under two minutes. Tap any one to watch.',
     'vg.1.tag': 'Report cards', 'vg.1.h4': 'A full class, generated in seconds',
-    'vg.1.p': "Watch a whole stream’s report cards built and ready to print — averages, ranks and conduct all computed.", 'vg.1.dur': 'Coming soon',
+    'vg.1.p': "Watch a whole stream’s report cards built and ready to print — averages, ranks and conduct all computed.",
     'vg.2.tag': 'Mock results', 'vg.2.h4': 'Marks into GCE grades, A–U',
-    'vg.2.p': 'See how entered marks turn into official GCE letter grades, ranked by papers passed.', 'vg.2.dur': 'Coming soon',
+    'vg.2.p': 'See how entered marks turn into official GCE letter grades, ranked by papers passed.',
     'vg.3.tag': 'Finance', 'vg.3.h4': 'Record a payment, print a receipt',
-    'vg.3.p': 'From recording a fee to a branded receipt and an automatic SMS to the parent.', 'vg.3.dur': 'Coming soon',
+    'vg.3.p': 'From recording a fee to a branded receipt and an automatic SMS to the parent.',
     'vg.4.tag': 'Transcripts', 'vg.4.h4': 'O-Level & A-Level transcripts',
-    'vg.4.p': "Pull a multi-year transcript from a student’s academic history and print it.", 'vg.4.dur': 'Coming soon',
+    'vg.4.p': "Pull a multi-year transcript from a student’s academic history and print it.",
     'vg.5.tag': 'Student records', 'vg.5.h4': 'Bulk matricules & ID cards',
-    'vg.5.p': 'Import a class, assign matricules and generate printable ID cards in one pass.', 'vg.5.dur': 'Coming soon',
+    'vg.5.p': 'Import a class, assign matricules and generate printable ID cards in one pass.',
     'vg.6.tag': 'New school year', 'vg.6.h4': 'Promote a whole school in clicks',
-    'vg.6.p': 'Carry structure, fees and balances forward, then promote classes into the new year.', 'vg.6.dur': 'Coming soon',
-    'vg.note': 'These walkthroughs are in production — check back soon to watch them.',
+    'vg.6.p': 'Carry structure, fees and balances forward, then promote classes into the new year.',
     'dl.eyebrow': 'Take it with you', 'dl.h3': 'Download the full capabilities document.',
     'dl.p': "A complete 23-page walkthrough of InScola — every role, every feature, and sample documents — to read offline or share with your school’s decision-makers.",
     'dl.btn': 'Download Document', 'dl.meta': 'Self-contained file · English',
@@ -633,23 +637,21 @@ const T = {
     'who.eyebrow': 'Pour qui c’est',
     'who.p': 'InScola est conçu pour les lycées camerounais avec <em>des centaines à des milliers d’élèves</em>, enseignant en anglais, en français, ou les deux. Si votre école a de la 6e à la Terminale, des classes d’examen, un bureau des finances, et des enseignants qui saisissent des notes — <em>InScola a été conçu pour vous.</em>',
     'demo.eyebrow': 'Aperçu des fonctionnalités', 'demo.h2': 'Découvrez tout ce que fait InScola — en trois minutes.',
-    'demo.lead': "Une visite guidée de l'ensemble du système : bulletins, résultats blancs, finances, relevés de notes et bien plus — le moyen le plus rapide de comprendre ce qu'InScola apporte à votre école.",
-    'demo.soon': 'Vidéo de démo — bientôt disponible',
+    'demo.lead': "Une visite guidée de l’ensemble du système : bulletins, résultats blancs, finances, relevés de notes et bien plus — le moyen le plus rapide de comprendre ce qu’InScola apporte à votre école.",
     'vg.eyebrow': 'Voir le fonctionnement', 'vg.h2': 'Courtes vidéos de ce que fait InScola.',
     'vg.lead': 'De courtes vidéos des fonctionnalités les plus importantes — chacune de moins de deux minutes. Appuyez sur n’importe laquelle pour regarder.',
     'vg.1.tag': 'Bulletins scolaires', 'vg.1.h4': 'Une classe entière, en quelques secondes',
-    'vg.1.p': 'Regardez les bulletins d’une classe entière générés et prêts à imprimer — moyennes, rangs et conduite tous calculés.', 'vg.1.dur': 'Bientôt disponible',
+    'vg.1.p': 'Regardez les bulletins d’une classe entière générés et prêts à imprimer — moyennes, rangs et conduite tous calculés.',
     'vg.2.tag': 'Résultats d’épreuves', 'vg.2.h4': 'Notes en grades GCE, A–U',
-    'vg.2.p': 'Voyez comment les notes saisies se transforment en notes GCE officielles, classées par matières réussies.', 'vg.2.dur': 'Bientôt disponible',
+    'vg.2.p': 'Voyez comment les notes saisies se transforment en notes GCE officielles, classées par matières réussies.',
     'vg.3.tag': 'Finance', 'vg.3.h4': 'Enregistrer un paiement, imprimer un reçu',
-    'vg.3.p': 'De l’enregistrement d’un frais à un reçu personnalisé et un SMS automatique au parent.', 'vg.3.dur': 'Bientôt disponible',
+    'vg.3.p': 'De l’enregistrement d’un frais à un reçu personnalisé et un SMS automatique au parent.',
     'vg.4.tag': 'Relevés de notes', 'vg.4.h4': 'Relevés O-Level et A-Level',
-    'vg.4.p': 'Extrayez un relevé pluriannuel de l’historique académique d’un élève et imprimez-le.', 'vg.4.dur': 'Bientôt disponible',
+    'vg.4.p': 'Extrayez un relevé pluriannuel de l’historique académique d’un élève et imprimez-le.',
     'vg.5.tag': 'Dossiers des élèves', 'vg.5.h4': 'Matricules et cartes d’identité en masse',
-    'vg.5.p': 'Importez une classe, attribuez des matricules et générez des cartes d’identité imprimables en une seule opération.', 'vg.5.dur': 'Bientôt disponible',
+    'vg.5.p': 'Importez une classe, attribuez des matricules et générez des cartes d’identité imprimables en une seule opération.',
     'vg.6.tag': 'Nouvelle année scolaire', 'vg.6.h4': 'Promouvoir toute l’école en quelques clics',
-    'vg.6.p': 'Transférez la structure, les frais et les soldes, puis promouvez les classes dans la nouvelle année.', 'vg.6.dur': 'Bientôt disponible',
-    'vg.note': 'Ces aperçus sont en production — revenez bientôt pour les regarder.',
+    'vg.6.p': 'Transférez la structure, les frais et les soldes, puis promouvez les classes dans la nouvelle année.',
     'dl.eyebrow': 'Emportez-le avec vous', 'dl.h3': 'Téléchargez le document complet de capacités.',
     'dl.p': 'Un aperçu complet de 23 pages d’InScola — chaque rôle, chaque fonctionnalité et des exemples de documents — à lire hors ligne ou à partager avec les décideurs de votre école.',
     'dl.btn': 'Télécharger le Document', 'dl.meta': 'Fichier autonome · Anglais',
@@ -809,6 +811,46 @@ document.getElementById('waSend').addEventListener('click', () => {
 
 // ---- Init saved language ----
 if (currentLang !== 'en') setLang(currentLang);
+
+// ---- Video modal ----
+const VIDEO_MAP = {
+  'report-card': 'videos/Report Cards-1.mp4',
+  'mock-results': 'videos/Mock Results-1.mp4',
+  'fees': 'videos/Payments-1.mp4',
+  'transcripts': 'videos/Transcript-1.mp4',
+  'id-cards': 'videos/Id Cards Cropped-1.mp4',
+  'new-year': 'videos/Promotion Cropped-1.mp4',
+};
+
+const vmodal = document.getElementById('vmodal');
+const vplayer = document.getElementById('vplayer');
+
+function openVideo(src) {
+  vplayer.src = src;
+  vplayer.play();
+  vmodal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeVideo() {
+  vmodal.classList.remove('open');
+  vplayer.pause();
+  vplayer.removeAttribute('src');
+  vplayer.load();
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.vcard').forEach(card => {
+  card.addEventListener('click', () => {
+    const src = VIDEO_MAP[card.dataset.video];
+    if (src) openVideo(src);
+  });
+});
+
+document.getElementById('videoLink').addEventListener('click', () => openVideo('videos/Demo-1.mp4'));
+document.querySelector('.vmodal-close').addEventListener('click', closeVideo);
+vmodal.addEventListener('click', e => { if (e.target === vmodal) closeVideo(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && vmodal.classList.contains('open')) closeVideo(); });
 </script>
 
 <template id="__bundler_thumbnail">
