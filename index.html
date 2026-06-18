@@ -91,7 +91,7 @@
       <div class="hero-actions" style="margin-top:30px;">
         <a class="btn btn-primary" href="#contact"><span data-i18n="hero.cta_demo">Request a Demo</span><svg><use href="#i-arrow"></use></svg></a>
         <a class="btn btn-ghost" href="#demo"><svg><use href="#i-play"></use></svg><span data-i18n="hero.cta_watch">Watch 3-min Demo</span></a>
-        <a class="btn btn-ghost" href="downloads/InScola-Capabilities.pdf" download="InScola-Capabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="hero.cta_dl">Capabilities Document</span></a>
+        <a id="hero-dl-btn" class="btn btn-ghost" href="downloads/Inscola-capabilities.pdf" download="Inscola-capabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="hero.cta_dl">Capabilities Document</span></a>
       </div>
     </div>
     <div class="browser reveal" style="margin-top:54px;">
@@ -346,7 +346,7 @@
       <div class="dl-doc">
         <div class="dl-thumb"><img src="shots/sample-report-card.png" alt="Capabilities document"></div>
         <div class="dl-actions">
-          <a class="btn btn-dl" href="downloads/InScola-Capabilities.pdf" download="InScola-Capabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="dl.btn">Download Document</span></a>
+          <a id="dl-section-btn" class="btn btn-dl" href="downloads/Inscola-capabilities.pdf" download="Inscola-capabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="dl.btn">Download Document</span></a>
           <span class="dl-meta" data-i18n="dl.meta">Self-contained file · English</span>
         </div>
       </div>
@@ -654,7 +654,7 @@ const T = {
     'vg.6.p': 'Transférez la structure, les frais et les soldes, puis promouvez les classes dans la nouvelle année.',
     'dl.eyebrow': 'Emportez-le avec vous', 'dl.h3': 'Téléchargez le document complet de capacités.',
     'dl.p': 'Un aperçu complet de 23 pages d’InScola — chaque rôle, chaque fonctionnalité et des exemples de documents — à lire hors ligne ou à partager avec les décideurs de votre école.',
-    'dl.btn': 'Télécharger le Document', 'dl.meta': 'Fichier autonome · Anglais',
+    'dl.btn': 'Télécharger le Document', 'dl.meta': 'Fichier autonome · Français',
     'faq.eyebrow': 'Questions', 'faq.h2': 'Questions fréquemment posées.',
     'faq.1.q': 'InScola a-t-il besoin d’une connexion internet pour fonctionner ?',
     'faq.1.a': 'Non. InScola fonctionne sur un serveur à l’intérieur de votre école et fonctionne entièrement hors ligne sur votre réseau local — par câble ou Wi-Fi. L’internet n’est nécessaire que pour envoyer des SMS et des e-mails de notification aux parents. Une coupure de courant ne l’arrêtera pas non plus, tant que le serveur est sur un petit onduleur.',
@@ -724,6 +724,17 @@ function setLang(lang) {
   });
   document.querySelectorAll('.lang-sw button').forEach(function(btn) {
     btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  // Swap capabilities document to the language-appropriate PDF
+  var dlHref = lang === 'fr'
+    ? 'downloads/InScola — Fonctionnalités.pdf'
+    : 'downloads/Inscola-capabilities.pdf';
+  var dlName = lang === 'fr'
+    ? 'InScola — Fonctionnalités.pdf'
+    : 'Inscola-capabilities.pdf';
+  ['hero-dl-btn', 'dl-section-btn'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) { el.href = dlHref; el.download = dlName; }
   });
   localStorage.setItem('inscola-lang', lang);
 }
