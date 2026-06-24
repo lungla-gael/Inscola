@@ -189,73 +189,136 @@
 <section class="sec" id="pricing">
   <div class="wrap">
     <div class="center reveal" style="max-width:680px;margin:0 auto 30px;">
-      <span class="eyebrow" data-i18n="price.eyebrow">Transparent pricing</span>
-      <h2 class="h2" style="margin-top:12px;" data-i18n="price.h2">Choose the mode that fits your school.</h2>
-      <p class="lead" style="margin-top:14px;" data-i18n="price.lead">Three deployment modes, available as an annual or a lifetime licence. Every mode runs on your own server and includes bilingual EN/FR.</p>
-    </div>
-    <div class="center reveal" style="margin-bottom:42px;">
-      <div class="billing" id="billing" role="tablist">
-        <button type="button" data-mode="annual" class="active"><span data-i18n="price.annual">Annual licence</span></button>
-        <button type="button" data-mode="life"><span data-i18n="price.life">Lifetime licence</span> <span class="save" data-i18n="price.save">Best value</span></button>
-      </div>
+      <span class="eyebrow" data-i18n="price.eyebrow">Plans &amp; Pricing</span>
+      <h2 class="h2" style="margin-top:12px;" data-i18n="price.h2">Three packages. One flat renewal.</h2>
+      <p class="lead" style="margin-top:14px;" data-i18n-html="price.lead">A one-time setup, then a flat <b>100,000 XAF / year</b> licence — the same for every package. Choose the scope that fits your school today; everything runs on your own server, bilingual EN/FR.</p>
     </div>
     <div class="prices">
       <div class="price reveal">
-        <span class="pname" data-i18n="plan.fo.name">Finance Only</span>
-        <div class="amt" data-annual="400,000" data-life="2,000,000"><span class="num">400,000</span> <span class="per" data-i18n="price.per_year">XAF / year</span></div>
-        <div class="maint" data-i18n-html="plan.fo.maint">+ <b>50,000 XAF / year</b> maintenance</div>
-        <p class="pdesc" style="margin-top:10px;" data-i18n="plan.fo.desc">Run your bursary and accounts on one system — fees to payroll.</p>
-        <ul>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li1">Fees, invoices, payments &amp; receipts</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li2">Expenses, Profit &amp; Loss &amp; budget</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li3">Payroll, payslips &amp; statements</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li4">Bursar &amp; Accountant roles</span></li>
-          <li class="off"><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li5">Academics, marks &amp; report cards</span></li>
-          <li class="off"><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li6">Attendance &amp; discipline</span></li>
+        <span class="pname" data-i18n="plan.so.name">School Only</span>
+        <div class="amt"><span class="num">350,000</span> <span class="per" data-i18n="price.per_yr">XAF · first year</span></div>
+        <div class="price-breakdown">
+          <div class="price-box">
+            <div class="pb-num">250,000</div>
+            <div class="pb-label" data-i18n="price.app_install">APP + INSTALL</div>
+            <div class="pb-sub" data-i18n="price.one_time">one-time</div>
+          </div>
+          <div class="price-box">
+            <div class="pb-num">100,000</div>
+            <div class="pb-label" data-i18n="price.lic_label">LICENCE</div>
+            <div class="pb-sub" data-i18n="price.per_yr_sub">per year</div>
+          </div>
+        </div>
+        <div class="renew-note"><svg><use href="#i-refresh"></use></svg><span data-i18n-html="price.renew">Renews at a flat <b>100,000 XAF/year</b></span></div>
+        <p class="pdesc" data-i18n="plan.so.desc">All your academics on one system — marks to transcripts.</p>
+        <ul class="feat-list">
+          <li class="feat-section" data-i18n="plan.so.sec1">ACADEMICS</li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li1">Marks entry &amp; Excel upload, compliance</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li2">Ministry report cards &amp; mastersheets</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li3">Mock results (GCE A–U) &amp; transcripts</span></li>
+          <li class="feat-section" data-i18n="plan.so.sec2">STUDENTS &amp; CONDUCT</li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li4">Records, matricules &amp; ID cards</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li5">Attendance, discipline &amp; promotion</span></li>
+          <li class="feat-section" data-i18n="plan.so.sec3">ROLES</li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li6">Admin, Teacher, VP, Principal, Discipline</span></li>
+          <li class="off"><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li7">Finance, fees &amp; payroll</span></li>
         </ul>
-        <a class="btn btn-light" href="#contact" data-i18n="plan.fo.cta">Request a Quote</a>
+        <a class="btn btn-light" href="#contact" data-i18n="plan.so.cta">Request a Quote</a>
       </div>
       <div class="price feat reveal">
         <span class="tag" data-i18n="plan.un.tag">Most complete</span>
         <span class="pname" data-i18n="plan.un.name">Unified</span>
-        <div class="amt" data-annual="1,000,000" data-life="5,000,000"><span class="num">1,000,000</span> <span class="per" data-i18n="price.per_year">XAF / year</span></div>
-        <div class="maint" data-i18n-html="plan.un.maint">+ <b>50,000 XAF / year</b> maintenance</div>
-        <p class="pdesc" style="margin-top:10px;" data-i18n="plan.un.desc">The whole school in one system — academics, finance and everything between.</p>
-        <ul>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li1">Everything in School &amp; Finance</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li2">All six roles, one source of truth</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li3">Marks &amp; attendance feed finance &amp; reports</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li4">Notifications &amp; credit system</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li5">One-click new-year rollover</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li6">Priority support &amp; training</span></li>
+        <div class="amt"><span class="num">550,000</span> <span class="per" data-i18n="price.per_yr">XAF · first year</span></div>
+        <div class="price-breakdown">
+          <div class="price-box">
+            <div class="pb-num">450,000</div>
+            <div class="pb-label" data-i18n="price.app_install">APP + INSTALL</div>
+            <div class="pb-sub" data-i18n="price.one_time">one-time</div>
+          </div>
+          <div class="price-box">
+            <div class="pb-num">100,000</div>
+            <div class="pb-label" data-i18n="price.lic_label">LICENCE</div>
+            <div class="pb-sub" data-i18n="price.per_yr_sub">per year</div>
+          </div>
+        </div>
+        <div class="renew-note"><svg><use href="#i-refresh"></use></svg><span data-i18n-html="price.renew">Renews at a flat <b>100,000 XAF/year</b></span></div>
+        <p class="pdesc" data-i18n="plan.un.desc">The whole school in one system — academics, finance and everything between.</p>
+        <ul class="feat-list">
+          <li class="feat-intro" data-i18n="plan.un.intro">Everything in School Only, plus:</li>
+          <li class="feat-section" data-i18n="plan.un.sec1">FINANCE</li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li1">Fees, invoices, instalments &amp; receipts</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li2">Payroll, payslips &amp; salary statements</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li3">Expenses, budget &amp; Profit &amp; Loss</span></li>
+          <li class="feat-section" data-i18n="plan.un.sec2">CONNECTED &amp; ROLES</li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li4">Marks &amp; attendance feed reports</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.un.li5">All seven roles — incl. Bursar &amp; Accountant</span></li>
         </ul>
         <a class="btn btn-primary" href="#contact" data-i18n="plan.un.cta">Request a Quote</a>
       </div>
       <div class="price reveal">
-        <span class="pname" data-i18n="plan.so.name">School Only</span>
-        <div class="amt" data-annual="600,000" data-life="3,000,000"><span class="num">600,000</span> <span class="per" data-i18n="price.per_year">XAF / year</span></div>
-        <div class="maint" data-i18n-html="plan.so.maint">+ <b>50,000 XAF / year</b> maintenance</div>
-        <p class="pdesc" style="margin-top:10px;" data-i18n="plan.so.desc">All your academics on one system — marks to transcripts.</p>
-        <ul>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li1">Marks, report cards &amp; transcripts</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li2">Mock results (GCE A–U)</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li3">Attendance &amp; discipline</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li4">Students, ID cards &amp; promotion</span></li>
-          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li5">Admin, Teacher, VP &amp; Discipline roles</span></li>
-          <li class="off"><svg><use href="#i-check"></use></svg><span data-i18n="plan.so.li6">Finance, fees &amp; payroll</span></li>
+        <span class="pname" data-i18n="plan.fo.name">Finance Only</span>
+        <div class="amt"><span class="num">300,000</span> <span class="per" data-i18n="price.per_yr">XAF · first year</span></div>
+        <div class="price-breakdown">
+          <div class="price-box">
+            <div class="pb-num">200,000</div>
+            <div class="pb-label" data-i18n="price.app_install">APP + INSTALL</div>
+            <div class="pb-sub" data-i18n="price.one_time">one-time</div>
+          </div>
+          <div class="price-box">
+            <div class="pb-num">100,000</div>
+            <div class="pb-label" data-i18n="price.lic_label">LICENCE</div>
+            <div class="pb-sub" data-i18n="price.per_yr_sub">per year</div>
+          </div>
+        </div>
+        <div class="renew-note"><svg><use href="#i-refresh"></use></svg><span data-i18n-html="price.renew">Renews at a flat <b>100,000 XAF/year</b></span></div>
+        <p class="pdesc" data-i18n="plan.fo.desc">Run your bursary and accounts on one system — fees to payroll.</p>
+        <ul class="feat-list">
+          <li class="feat-section" data-i18n="plan.fo.sec1">FINANCE</li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li1">Fee structures, invoices &amp; instalments</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li2">Payments, receipts, void &amp; reversal</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li3">Payroll, payslips &amp; statements</span></li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li4">Expenses, budget &amp; Profit &amp; Loss</span></li>
+          <li class="feat-section" data-i18n="plan.fo.sec2">ROLES &amp; EXTRAS</li>
+          <li><svg><use href="#i-check"></use></svg><span data-i18n-html="plan.fo.li5">Bursar &amp; Accountant · <em class="feat-em">email included</em></span></li>
+          <li class="off"><svg><use href="#i-check"></use></svg><span data-i18n="plan.fo.li6">Academics &amp; report cards</span></li>
         </ul>
-        <a class="btn btn-light" href="#contact" data-i18n="plan.so.cta">Request a Quote</a>
+        <a class="btn btn-light" href="#contact" data-i18n="plan.fo.cta">Request a Quote</a>
       </div>
     </div>
-    <div class="setup-grid reveal">
-      <div class="setup-item">
-        <span class="si-ic"><svg><use href="#i-server"></use></svg></span>
-        <div data-i18n-html="setup.1"><b>Setup &amp; training</b> — a one-time fee of <strong>100,000 XAF</strong> covering installation, configuration and staff training. Separate from the licence above.</div>
+    <div class="addons-box reveal">
+      <div class="addons-hdr"><span class="addons-dot"></span><span data-i18n="addons.title">ADD-ONS · ANY PACKAGE</span></div>
+      <div class="addons-grid">
+        <div class="addon-item">
+          <span class="addon-ic"><svg><use href="#i-globe"></use></svg></span>
+          <div>
+            <div class="addon-name" data-i18n="addon.1.name">Online teacher access</div>
+            <div class="addon-price" data-i18n="addon.1.price">50,000 XAF one-time · domain included.</div>
+            <div class="addon-desc" data-i18n="addon.1.desc">Let teachers enter marks from anywhere.</div>
+          </div>
+        </div>
+        <div class="addon-item">
+          <span class="addon-ic"><svg><use href="#i-phone"></use></svg></span>
+          <div>
+            <div class="addon-name" data-i18n="addon.2.name">SMS notifications</div>
+            <div class="addon-price" data-i18n="addon.2.price">50 XAF per SMS · pay as you go.</div>
+            <div class="addon-desc" data-i18n="addon.2.desc">Payment, absence &amp; result alerts.</div>
+          </div>
+        </div>
+        <div class="addon-item">
+          <span class="addon-ic"><svg><use href="#i-mail"></use></svg></span>
+          <div>
+            <div class="addon-name" data-i18n="addon.3.name">Email notifications</div>
+            <div class="addon-price" data-i18n="addon.3.price">Free with SMS enabled.</div>
+            <div class="addon-desc" data-i18n="addon.3.desc">Transactional email to guardians &amp; staff.</div>
+          </div>
+        </div>
       </div>
-      <div class="setup-item">
-        <span class="si-ic"><svg><use href="#i-globe"></use></svg></span>
-        <div data-i18n-html="setup.2"><b>Internet features (optional)</b> — SMS &amp; email notifications and secure online access for teachers need their own one-time setup, <strong>domain included</strong>.</div>
-      </div>
+    </div>
+    <div class="price-strip reveal">
+      <div class="ps-item"><svg><use href="#i-check"></use></svg><span data-i18n-html="strip.1"><b>Full staff training</b> included</span></div>
+      <div class="ps-item"><svg><use href="#i-check"></use></svg><span data-i18n-html="strip.2"><b>6 months of support</b> included</span></div>
+      <div class="ps-item"><svg><use href="#i-check"></use></svg><span data-i18n-html="strip.3">Runs on <b>your own server</b></span></div>
+      <div class="ps-item"><svg><use href="#i-check"></use></svg><span data-i18n-html="strip.4">Bilingual <b>EN / FR</b></span></div>
     </div>
   </div>
 </section>
@@ -384,7 +447,11 @@
       </div>
       <div class="faq-item reveal">
         <button class="faq-q" type="button"><span data-i18n="faq.7.q">How does notification pricing work?</span><span class="qi"><svg><use href="#i-plus"></use></svg></span></button>
-        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.7.a">SMS and email run on a transparent credit system. You can see exactly how many credits you've used and top up whenever you choose — no surprise bills and no hidden metering.</div></div>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.7.a">SMS notifications are charged at 50 XAF per message — pay as you go, no bundles or hidden fees. Email notifications are free: included with Finance Only by default, and activated automatically when SMS is enabled on School Only or Unified.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button"><span data-i18n="faq.8.q">Can I upgrade from one package to another later?</span><span class="qi"><svg><use href="#i-plus"></use></svg></span></button>
+        <div class="faq-a"><div class="faq-a-inner" data-i18n="faq.8.a">Yes. If you start with School Only and later want to add Finance, you pay the Finance module installation — 200,000 XAF. If you start with Finance Only and want to add academics, you pay the School module installation — 250,000 XAF. Your annual licence of 100,000 XAF stays the same either way. Contact us to arrange an upgrade.</div></div>
       </div>
     </div>
   </div>
@@ -506,27 +573,34 @@ const T = {
     'shot.1.h4': 'Report card — print view', 'shot.1.p': 'Generated in under 30 seconds. Every field computed automatically.',
     'shot.2.h4': 'Mock results panel', 'shot.2.p': 'GCE letter grades from marks already entered. No manual conversion.',
     'shot.3.h4': 'Finance dashboard', 'shot.3.p': 'Fees, payments, payroll and expenses in one place.',
-    'price.eyebrow': 'Transparent pricing', 'price.h2': 'Choose the mode that fits your school.',
-    'price.lead': 'Three deployment modes, available as an annual or a lifetime licence. Every mode runs on your own server and includes bilingual EN/FR.',
-    'price.annual': 'Annual licence', 'price.life': 'Lifetime licence', 'price.save': 'Best value',
-    'price.per_year': 'XAF / year', 'price.per_once': 'XAF one-time',
-    'plan.fo.name': 'Finance Only', 'plan.fo.maint': '+ <b>50,000 XAF / year</b> maintenance',
+    'price.eyebrow': 'Plans & Pricing', 'price.h2': 'Three packages. One flat renewal.',
+    'price.lead': 'A one-time setup, then a flat <b>100,000 XAF / year</b> licence — the same for every package. Choose the scope that fits your school today; everything runs on your own server, bilingual EN/FR.',
+    'price.per_yr': 'XAF · first year',
+    'price.app_install': 'APP + INSTALL', 'price.one_time': 'one-time', 'price.lic_label': 'LICENCE', 'price.per_yr_sub': 'per year',
+    'price.renew': 'Renews at a flat <b>100,000 XAF/year</b>',
+    'plan.fo.name': 'Finance Only',
     'plan.fo.desc': 'Run your bursary and accounts on one system — fees to payroll.',
-    'plan.fo.li1': 'Fees, invoices, payments & receipts', 'plan.fo.li2': 'Expenses, Profit & Loss & budget',
-    'plan.fo.li3': 'Payroll, payslips & statements', 'plan.fo.li4': 'Bursar & Accountant roles',
-    'plan.fo.li5': 'Academics, marks & report cards', 'plan.fo.li6': 'Attendance & discipline', 'plan.fo.cta': 'Request a Quote',
-    'plan.un.tag': 'Most complete', 'plan.un.name': 'Unified', 'plan.un.maint': '+ <b>50,000 XAF / year</b> maintenance',
+    'plan.fo.sec1': 'FINANCE', 'plan.fo.li1': 'Fee structures, invoices & instalments', 'plan.fo.li2': 'Payments, receipts, void & reversal',
+    'plan.fo.li3': 'Payroll, payslips & statements', 'plan.fo.li4': 'Expenses, budget & Profit & Loss',
+    'plan.fo.sec2': 'ROLES & EXTRAS', 'plan.fo.li5': 'Bursar & Accountant · <em class="feat-em">email included</em>', 'plan.fo.li6': 'Academics & report cards', 'plan.fo.cta': 'Request a Quote',
+    'plan.un.tag': 'Most complete', 'plan.un.name': 'Unified',
     'plan.un.desc': 'The whole school in one system — academics, finance and everything between.',
-    'plan.un.li1': 'Everything in School & Finance', 'plan.un.li2': 'All six roles, one source of truth',
-    'plan.un.li3': 'Marks & attendance feed finance & reports', 'plan.un.li4': 'Notifications & credit system',
-    'plan.un.li5': 'One-click new-year rollover', 'plan.un.li6': 'Priority support & training', 'plan.un.cta': 'Request a Quote',
-    'plan.so.name': 'School Only', 'plan.so.maint': '+ <b>50,000 XAF / year</b> maintenance',
+    'plan.un.intro': 'Everything in School Only, plus:', 'plan.un.sec1': 'FINANCE',
+    'plan.un.li1': 'Fees, invoices, instalments & receipts', 'plan.un.li2': 'Payroll, payslips & salary statements',
+    'plan.un.li3': 'Expenses, budget & Profit & Loss', 'plan.un.sec2': 'CONNECTED & ROLES',
+    'plan.un.li4': 'Marks & attendance feed reports', 'plan.un.li5': 'All seven roles — incl. Bursar & Accountant', 'plan.un.cta': 'Request a Quote',
+    'plan.so.name': 'School Only',
     'plan.so.desc': 'All your academics on one system — marks to transcripts.',
-    'plan.so.li1': 'Marks, report cards & transcripts', 'plan.so.li2': 'Mock results (GCE A–U)',
-    'plan.so.li3': 'Attendance & discipline', 'plan.so.li4': 'Students, ID cards & promotion',
-    'plan.so.li5': 'Admin, Teacher, VP & Discipline roles', 'plan.so.li6': 'Finance, fees & payroll', 'plan.so.cta': 'Request a Quote',
-    'setup.1': '<b>Setup &amp; training</b> — a one-time fee of <strong>100,000 XAF</strong> covering installation, configuration and staff training. Separate from the licence above.',
-    'setup.2': '<b>Internet features (optional)</b> — SMS &amp; email notifications and secure online access for teachers need their own one-time setup, <strong>domain included</strong>.',
+    'plan.so.sec1': 'ACADEMICS', 'plan.so.li1': 'Marks entry & Excel upload, compliance', 'plan.so.li2': 'Ministry report cards & mastersheets',
+    'plan.so.li3': 'Mock results (GCE A–U) & transcripts', 'plan.so.sec2': 'STUDENTS & CONDUCT',
+    'plan.so.li4': 'Records, matricules & ID cards', 'plan.so.li5': 'Attendance, discipline & promotion',
+    'plan.so.sec3': 'ROLES', 'plan.so.li6': 'Admin, Teacher, VP, Principal, Discipline', 'plan.so.li7': 'Finance, fees & payroll', 'plan.so.cta': 'Request a Quote',
+    'addons.title': 'ADD-ONS · ANY PACKAGE',
+    'addon.1.name': 'Online teacher access', 'addon.1.price': '50,000 XAF one-time · domain included.', 'addon.1.desc': 'Let teachers enter marks from anywhere.',
+    'addon.2.name': 'SMS notifications', 'addon.2.price': '50 XAF per SMS · pay as you go.', 'addon.2.desc': 'Payment, absence & result alerts.',
+    'addon.3.name': 'Email notifications', 'addon.3.price': 'Free with SMS enabled.', 'addon.3.desc': 'Transactional email to guardians & staff.',
+    'strip.1': '<b>Full staff training</b> included', 'strip.2': '<b>6 months of support</b> included',
+    'strip.3': 'Runs on <b>your own server</b>', 'strip.4': 'Bilingual <b>EN / FR</b>',
     'who.eyebrow': "Who it’s for",
     'who.p': 'InScola is designed for Cameroonian secondary schools with <em>hundreds — thousands of students</em>, teaching in English, French, or both. If your school has Form 1 through Upper Sixth, examination classes, a finance office, and teachers who enter marks — <em>InScola was built for you.</em>',
     'demo.eyebrow': 'Capabilities overview', 'demo.h2': 'See everything InScola does — in three minutes.',
@@ -562,7 +636,9 @@ const T = {
     'faq.6.q': 'What happens when a new school year begins?',
     'faq.6.a': "Your previous structure, settings and fee structures are copied into the new year — so you simply update what changed instead of starting from scratch. One-click promotion moves classes forward, carries unpaid balances with each student, and keeps last year’s records intact.",
     'faq.7.q': 'How does notification pricing work?',
-    'faq.7.a': "SMS and email run on a transparent credit system. You can see exactly how many credits you’ve used and top up whenever you choose — no surprise bills and no hidden metering.",
+    'faq.7.a': 'SMS notifications are charged at 50 XAF per message — pay as you go, no bundles or hidden fees. Email notifications are free: included with Finance Only by default, and activated automatically when SMS is enabled on School Only or Unified.',
+    'faq.8.q': 'Can I upgrade from one package to another later?',
+    'faq.8.a': 'Yes. If you start with School Only and later want to add Finance, you pay the Finance module installation — 200,000 XAF. If you start with Finance Only and want to add academics, you pay the School module installation — 250,000 XAF. Your annual licence of 100,000 XAF stays the same either way. Contact us to arrange an upgrade.',
     'con.eyebrow': 'Request a demo', 'con.h2': 'Ready to see InScola in your school?',
     'con.promise': "We offer a <b>free demonstration using your school’s own data</b>. Bring your class list and subject assignments — we’ll show you a report card generated from your real marks <b>within the hour</b>.",
     'con.fn': 'Full name', 'con.fn.ph': 'Your name',
@@ -613,27 +689,34 @@ const T = {
     'shot.1.h4': 'Bulletin — vue impression', 'shot.1.p': 'Généré en moins de 30 secondes. Chaque champ calculé automatiquement.',
     'shot.2.h4': 'Tableau de résultats d’épreuves', 'shot.2.p': 'Notes GCE à partir des notes déjà saisies. Pas de conversion manuelle.',
     'shot.3.h4': 'Tableau de bord financier', 'shot.3.p': 'Frais, paiements, paie et dépenses en un seul endroit.',
-    'price.eyebrow': 'Tarification transparente', 'price.h2': 'Choisissez le mode qui convient à votre école.',
-    'price.lead': 'Trois modes de déploiement, en licence annuelle ou à vie. Chaque mode fonctionne sur votre propre serveur et inclut le bilingue EN/FR.',
-    'price.annual': 'Licence annuelle', 'price.life': 'Licence à vie', 'price.save': 'Meilleur rapport',
-    'price.per_year': 'XAF / an', 'price.per_once': 'XAF paiement unique',
-    'plan.fo.name': 'Finance Uniquement', 'plan.fo.maint': '+ <b>50 000 XAF / an</b> de maintenance',
+    'price.eyebrow': 'Formules & Tarifs', 'price.h2': 'Trois formules. Un renouvellement fixe.',
+    'price.lead': 'Un frais d’installation unique, puis une licence fixe de <b>100 000 XAF / an</b> — identique pour chaque formule. Choisissez le périmètre adapté à votre école aujourd’hui ; tout fonctionne sur votre propre serveur, bilingue EN/FR.',
+    'price.per_yr': 'XAF · première année',
+    'price.app_install': 'APP + INSTALL', 'price.one_time': 'paiement unique', 'price.lic_label': 'LICENCE', 'price.per_yr_sub': 'par an',
+    'price.renew': 'Se renouvelle à <b>100 000 XAF/an</b>',
+    'plan.fo.name': 'Finance Uniquement',
     'plan.fo.desc': 'Gérez votre intendance et votre comptabilité en un seul système — des frais à la paie.',
-    'plan.fo.li1': 'Frais, factures, paiements et reçus', 'plan.fo.li2': 'Dépenses, Pertes & Profits et budget',
-    'plan.fo.li3': 'Paie, bulletins de paie et états', 'plan.fo.li4': 'Rôles Intendant et Comptable',
-    'plan.fo.li5': 'Académique, notes et bulletins', 'plan.fo.li6': 'Présences et discipline', 'plan.fo.cta': 'Demander un Devis',
-    'plan.un.tag': 'Le plus complet', 'plan.un.name': 'Unifié', 'plan.un.maint': '+ <b>50 000 XAF / an</b> de maintenance',
+    'plan.fo.sec1': 'FINANCE', 'plan.fo.li1': 'Structures de frais, factures & versements', 'plan.fo.li2': 'Paiements, reçus, annulation & contre-passation',
+    'plan.fo.li3': 'Paie, bulletins de paie & états', 'plan.fo.li4': 'Dépenses, budget & Pertes & Profits',
+    'plan.fo.sec2': 'RÔLES & EXTRAS', 'plan.fo.li5': 'Intendant & Comptable · <em class="feat-em">e-mail inclus</em>', 'plan.fo.li6': 'Académique & bulletins', 'plan.fo.cta': 'Demander un Devis',
+    'plan.un.tag': 'Le plus complet', 'plan.un.name': 'Unifié',
     'plan.un.desc': 'Toute l’école en un seul système — académique, finance et tout le reste.',
-    'plan.un.li1': 'Tout dans École et Finance', 'plan.un.li2': 'Les six rôles, une seule source de vérité',
-    'plan.un.li3': 'Notes et présences alimentent finance et rapports', 'plan.un.li4': 'Notifications et système de crédit',
-    'plan.un.li5': 'Basculement vers nouvelle année en un clic', 'plan.un.li6': 'Support prioritaire et formation', 'plan.un.cta': 'Demander un Devis',
-    'plan.so.name': 'École Uniquement', 'plan.so.maint': '+ <b>50 000 XAF / an</b> de maintenance',
+    'plan.un.intro': 'Tout dans École Uniquement, plus :', 'plan.un.sec1': 'FINANCE',
+    'plan.un.li1': 'Frais, factures, versements & reçus', 'plan.un.li2': 'Paie, bulletins de paie & états de salaire',
+    'plan.un.li3': 'Dépenses, budget & Pertes & Profits', 'plan.un.sec2': 'CONNECTÉ & RÔLES',
+    'plan.un.li4': 'Notes & présences alimentent les rapports', 'plan.un.li5': 'Les sept rôles — dont Intendant & Comptable', 'plan.un.cta': 'Demander un Devis',
+    'plan.so.name': 'École Uniquement',
     'plan.so.desc': 'Toute votre gestion académique en un seul système — des notes aux relevés.',
-    'plan.so.li1': 'Notes, bulletins et relevés', 'plan.so.li2': 'Résultats d’épreuves (GCE A–U)',
-    'plan.so.li3': 'Présences et discipline', 'plan.so.li4': 'Élèves, cartes d’identité et promotion',
-    'plan.so.li5': 'Rôles Admin, Enseignant, Censeur et Discipline', 'plan.so.li6': 'Finance, frais et paie', 'plan.so.cta': 'Demander un Devis',
-    'setup.1': '<b>Installation et formation</b> — frais unique de <strong>100 000 XAF</strong> couvrant l’installation, la configuration et la formation du personnel. Séparé de la licence ci-dessus.',
-    'setup.2': '<b>Fonctionnalités internet (optionnel)</b> — les notifications SMS &amp; e-mail et l’accès en ligne sécurisé pour les enseignants nécessitent leur propre installation unique, <strong>domaine inclus</strong>.',
+    'plan.so.sec1': 'ACADÉMIQUE', 'plan.so.li1': 'Saisie des notes & import Excel, conformité', 'plan.so.li2': 'Bulletins & mastersheets au format Ministère',
+    'plan.so.li3': 'Résultats d’épreuves (GCE A–U) & relevés', 'plan.so.sec2': 'ÉLÈVES & DISCIPLINE',
+    'plan.so.li4': 'Dossiers, matricules & cartes d’identité', 'plan.so.li5': 'Assiduité, discipline & promotion',
+    'plan.so.sec3': 'RÔLES', 'plan.so.li6': 'Admin, Enseignant, Censeur, Directeur, Discipline', 'plan.so.li7': 'Finance, frais & paie', 'plan.so.cta': 'Demander un Devis',
+    'addons.title': 'OPTIONS · TOUTES FORMULES',
+    'addon.1.name': 'Accès en ligne pour les enseignants', 'addon.1.price': '50 000 XAF paiement unique · domaine inclus.', 'addon.1.desc': 'Les enseignants saisissent les notes de partout.',
+    'addon.2.name': 'Notifications SMS', 'addon.2.price': '50 XAF par SMS · à la demande.', 'addon.2.desc': 'Alertes paiements, absences & résultats.',
+    'addon.3.name': 'Notifications e-mail', 'addon.3.price': 'Gratuites avec les SMS activés.', 'addon.3.desc': 'E-mails transactionnels aux parents & staff.',
+    'strip.1': '<b>Formation complète du personnel</b> incluse', 'strip.2': '<b>6 mois de support</b> inclus',
+    'strip.3': 'Fonctionne sur <b>votre propre serveur</b>', 'strip.4': 'Bilingue <b>EN / FR</b>',
     'who.eyebrow': 'Pour qui c’est',
     'who.p': 'InScola est conçu pour les lycées camerounais avec <em>des centaines à des milliers d’élèves</em>, enseignant en anglais, en français, ou les deux. Si votre école a de la 6e à la Terminale, des classes d’examen, un bureau des finances, et des enseignants qui saisissent des notes — <em>InScola a été conçu pour vous.</em>',
     'demo.eyebrow': 'Aperçu des fonctionnalités', 'demo.h2': 'Découvrez tout ce que fait InScola — en trois minutes.',
@@ -669,7 +752,9 @@ const T = {
     'faq.6.q': 'Que se passe-t-il au début d’une nouvelle année scolaire ?',
     'faq.6.a': 'Votre structure précédente, vos paramètres et vos structures de frais sont copiés dans la nouvelle année — vous n’avez donc qu’à mettre à jour ce qui a changé au lieu de repartir de zéro. La promotion en un clic fait avancer les classes, transfère les soldes impayés avec chaque élève, et garde les dossiers de l’année précédente intacts.',
     'faq.7.q': 'Comment fonctionne la tarification des notifications ?',
-    'faq.7.a': 'Les SMS et les e-mails fonctionnent sur un système de crédit transparent. Vous pouvez voir exactement combien de crédits vous avez utilisés et recharger quand vous le souhaitez — pas de factures surprises et pas de comptage caché.',
+    'faq.7.a': 'Les notifications SMS sont facturées 50 XAF par message — à la demande, sans abonnement ni frais cachés. Les notifications e-mail sont gratuites : incluses par défaut avec Finance Uniquement, et activées automatiquement lorsque les SMS sont activés sur École Uniquement ou Unifié.',
+    'faq.8.q': 'Puis-je passer d’un forfait à un autre plus tard ?',
+    'faq.8.a': 'Oui. Si vous commencez avec École Uniquement et souhaitez ajouter Finance, vous payez les frais d’installation du module Finance — 200 000 XAF. Si vous commencez avec Finance Uniquement et souhaitez ajouter l’académique, vous payez les frais d’installation du module École — 250 000 XAF. Votre licence annuelle de 100 000 XAF reste la même dans les deux cas. Contactez-nous pour organiser une mise à niveau.',
     'con.eyebrow': 'Demander une démo', 'con.h2': 'Prêt à voir InScola dans votre école ?',
     'con.promise': 'Nous offrons une <b>démonstration gratuite en utilisant les données réelles de votre école</b>. Apportez votre liste de classes et vos affectations de matières — nous vous montrerons un bulletin généré à partir de vos vraies notes <b>dans l’heure</b>.',
     'con.fn': 'Nom complet', 'con.fn.ph': 'Votre nom',
@@ -693,8 +778,6 @@ const T = {
 
 // ---- State ----
 var currentLang = localStorage.getItem('inscola-lang') || 'en';
-var billingMode = 'annual';
-
 // ---- Apply language ----
 function setLang(lang) {
   currentLang = lang;
@@ -711,10 +794,6 @@ function setLang(lang) {
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
     var v = T[lang][el.dataset.i18nPh];
     if (v !== undefined) el.placeholder = v;
-  });
-  // Re-apply per-unit text for current billing mode
-  document.querySelectorAll('.price .amt .per').forEach(function(el) {
-    el.textContent = billingMode === 'life' ? T[lang]['price.per_once'] : T[lang]['price.per_year'];
   });
   // Recalculate open FAQ heights after text swap
   document.querySelectorAll('.faq-item.open').forEach(function(item) {
@@ -766,18 +845,6 @@ document.querySelectorAll('.faq-item').forEach(item => {
     });
     if (isOpen){ item.classList.remove('open'); a.style.maxHeight = null; }
     else { item.classList.add('open'); a.style.maxHeight = a.scrollHeight + 'px'; }
-  });
-});
-
-// ---- Pricing: annual / lifetime toggle ----
-document.querySelectorAll('#billing button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    billingMode = btn.dataset.mode;
-    document.querySelectorAll('#billing button').forEach(b => b.classList.toggle('active', b === btn));
-    document.querySelectorAll('.price .amt').forEach(amt => {
-      amt.querySelector('.num').textContent = billingMode === 'life' ? amt.dataset.life : amt.dataset.annual;
-      amt.querySelector('.per').textContent = billingMode === 'life' ? T[currentLang]['price.per_once'] : T[currentLang]['price.per_year'];
-    });
   });
 });
 
