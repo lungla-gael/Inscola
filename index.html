@@ -94,11 +94,19 @@
         <a id="hero-dl-btn" class="btn btn-ghost" href="downloads/InscolaCapabilities.pdf" download="InscolaCapabilities.pdf"><svg><use href="#i-dl"></use></svg><span data-i18n="hero.cta_dl">Capabilities Document</span></a>
       </div>
     </div>
-    <div class="browser reveal" style="margin-top:54px;">
-      <div class="browser__bar"><i></i><i></i><i></i>
-        <div class="browser__url"><svg style="color:#61c454"><use href="#i-lock"></use></svg>app.inscola.app</div>
+    <div class="hero-shots reveal" style="margin-top:54px;">
+      <div class="browser hero-shot-doc">
+        <div class="browser__bar"><i></i><i></i><i></i>
+          <div class="browser__url"><svg style="color:#61c454"><use href="#i-lock"></use></svg>app.inscola.app</div>
+        </div>
+        <img src="shots/sample-report-card.png" alt="InScola generated report card — Ministry format">
       </div>
-      <img src="shots/admin-dashboard.png" alt="InScola admin dashboard">
+      <div class="browser hero-shot-app">
+        <div class="browser__bar"><i></i><i></i><i></i>
+          <div class="browser__url"><svg style="color:#61c454"><use href="#i-lock"></use></svg>app.inscola.app</div>
+        </div>
+        <img src="shots/finance-dashboard.png" alt="InScola finance dashboard — fees, payments and payroll">
+      </div>
     </div>
   </div>
 </section>
@@ -143,17 +151,42 @@
     <div class="center reveal" style="max-width:680px;margin:0 auto 46px;">
       <span class="eyebrow" data-i18n="feat.eyebrow">Everything in one place</span>
       <h2 class="h2" style="margin-top:12px;" data-i18n="feat.h2">One system for the whole school.</h2>
-      <p class="lead" style="margin-top:14px;" data-i18n="feat.lead">Eight modules, six roles — all sharing the same data, in English or French.</p>
+      <p class="lead" style="margin-top:14px;" data-i18n="feat.lead">Ten modules, seven roles — all sharing the same data, in English or French.</p>
     </div>
     <div class="fgrid">
-      <div class="fcard reveal"><div class="ic bg-indigo t-indigo"><svg><use href="#i-doc"></use></svg></div><h4 data-i18n="feat.1.h4">Marks Management</h4><p data-i18n="feat.1.p">Entry by sequence &amp; term with autosave, Excel import/export, coefficients out of 20.</p></div>
-      <div class="fcard reveal"><div class="ic bg-emerald t-emerald"><svg><use href="#i-printer"></use></svg></div><h4 data-i18n="feat.2.h4">Report Cards</h4><p data-i18n="feat.2.p">Ministry-standard report cards with averages, rank, conduct &amp; QR verification.</p></div>
-      <div class="fcard reveal"><div class="ic bg-violet t-violet"><svg><use href="#i-rank"></use></svg></div><h4 data-i18n="feat.3.h4">Mock Results</h4><p data-i18n="feat.3.p">GCE letter grades (A–U) from marks already entered, ranked by papers passed.</p></div>
-      <div class="fcard reveal"><div class="ic bg-amber t-amber"><svg><use href="#i-coins"></use></svg></div><h4 data-i18n="feat.4.h4">Finance &amp; Payroll</h4><p data-i18n="feat.4.p">Fees, invoices, receipts, expenses, Profit &amp; Loss, payroll and payslips in one ledger.</p></div>
-      <div class="fcard reveal"><div class="ic bg-disc t-disc"><svg><use href="#i-bell"></use></svg></div><h4 data-i18n="feat.5.h4">Notifications</h4><p data-i18n="feat.5.p">Automatic SMS &amp; email to parents, with a transparent credit &amp; top-up system.</p></div>
-      <div class="fcard reveal"><div class="ic bg-indigo t-indigo"><svg><use href="#i-id"></use></svg></div><h4 data-i18n="feat.6.h4">Student Records</h4><p data-i18n="feat.6.p">Profiles, matricules, ID cards, transcripts and one-click year promotion.</p></div>
-      <div class="fcard reveal"><div class="ic bg-emerald t-emerald"><svg><use href="#i-cal"></use></svg></div><h4 data-i18n="feat.7.h4">Attendance &amp; Discipline</h4><p data-i18n="feat.7.p">Attendance per stream and an incident register that feeds the report card.</p></div>
-      <div class="fcard reveal"><div class="ic bg-acct t-acct"><svg><use href="#i-lock"></use></svg></div><h4 data-i18n="feat.8.h4">Role-Based Access</h4><p data-i18n="feat.8.p">Six secure roles, each its own workspace, with a full audit trail.</p></div>
+      <div class="fcard reveal"><div class="ic bg-indigo t-indigo"><svg><use href="#i-doc"></use></svg></div><h4 data-i18n="feat.1.h4">Marks Management</h4><p data-i18n="feat.1.p">Multiple sequences per term, autosave, Excel import/export and bulk upload. Coefficients out of 20, marking period locks and compliance tracking so nothing falls through before report day.</p></div>
+      <div class="fcard reveal"><div class="ic bg-emerald t-emerald"><svg><use href="#i-printer"></use></svg></div><h4 data-i18n="feat.2.h4">Report Cards</h4><p data-i18n="feat.2.p">Ministry-standard report cards with coefficient-weighted averages, class ranking, per-subject rank, conduct, council decisions, student photo and QR verification seal — generated for a whole class in under 30 seconds.</p></div>
+      <div class="fcard reveal"><div class="ic bg-violet t-violet"><svg><use href="#i-rank"></use></svg></div><h4 data-i18n="feat.3.h4">Mock Results</h4><p data-i18n="feat.3.p">GCE letter grades A–U computed from marks already in the system using configurable grade thresholds per level. Students ranked by papers passed — exactly how official GCE results are read.</p></div>
+      <div class="fcard reveal"><div class="ic bg-amber t-amber"><svg><use href="#i-coins"></use></svg></div><h4 data-i18n="feat.4.h4">Finance &amp; Payroll</h4><p data-i18n="feat.4.p">Fee instalments with oldest-due-first allocation, payment void and reversal with audit trail, secure watermarked receipts, payroll runs with draft/approval/payment lifecycle, expense tracking and a full Profit &amp; Loss view.</p></div>
+      <div class="fcard reveal"><div class="ic bg-disc t-disc"><svg><use href="#i-bell"></use></svg></div><h4 data-i18n="feat.5.h4">Notifications</h4><p data-i18n="feat.5.p">Automatic SMS and email to parents on absences, fee overdue, discipline incidents and report card availability. Broadcast to a class or the whole school. Pay-as-you-go at 50 XAF per SMS.</p></div>
+      <div class="fcard reveal"><div class="ic bg-indigo t-indigo"><svg><use href="#i-id"></use></svg></div><h4 data-i18n="feat.6.h4">Student Records</h4><p data-i18n="feat.6.p">Full enrolment history, stream transfers with context preserved, bulk matricule assignment, photo ID cards with QR codes and bulk ZIP download for print shops — bilingual card generation in English or French.</p></div>
+      <div class="fcard reveal"><div class="ic bg-emerald t-emerald"><svg><use href="#i-cal"></use></svg></div><h4 data-i18n="feat.7.h4">Attendance &amp; Discipline</h4><p data-i18n="feat.7.p">Daily attendance per class with lateness tracking. Disciplinary incident register with severity levels and a conduct algorithm that feeds directly into the report card — no manual calculation.</p></div>
+      <div class="fcard reveal"><div class="ic bg-acct t-acct"><svg><use href="#i-lock"></use></svg></div><h4 data-i18n="feat.8.h4">Role-Based Access</h4><p data-i18n="feat.8.p">Seven roles — Admin, VP, Principal, Teacher, Bursar, Accountant, Discipline Master — each with their own secure workspace. Marking periods lock on admin command. Every action logged in a permanent audit trail.</p></div>
+      <div class="fcard reveal"><div class="ic bg-violet t-violet"><svg><use href="#i-refresh"></use></svg></div><h4 data-i18n="feat.9.h4">Year-End Promotion</h4><p data-i18n="feat.9.p">Promote an entire school cohort in minutes. Preview every student's destination before committing. Per-student overrides for repeats and graduates. Outstanding fee balances carry forward automatically into the new year's invoice.</p></div>
+      <div class="fcard reveal"><div class="ic bg-amber t-amber"><svg><use href="#i-chart"></use></svg></div><h4 data-i18n="feat.10.h4">Transcripts</h4><p data-i18n="feat.10.p">O-Level &amp; A-Level transcripts pulled from a student's full multi-year academic history — every subject, session and result assembled automatically into a clean, printable record ready for GCE boards and university applications.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRUST / VERIFICATION ============ -->
+<section class="sec">
+  <div class="wrap">
+    <div class="center reveal" style="max-width:680px;margin:0 auto 40px;">
+      <span class="eyebrow" data-i18n="trust.eyebrow">Verified &amp; tamper-proof</span>
+      <h2 class="h2" style="margin-top:12px;" data-i18n="trust.h2">Documents nobody can fake.</h2>
+      <p class="lead" style="margin-top:14px;" data-i18n="trust.lead">Every report card and receipt InScola prints carries a built-in proof of authenticity — so parents, banks and exam boards can trust what they hold.</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card reveal">
+        <span class="trust-ic"><svg><use href="#i-shield"></use></svg></span>
+        <h4 data-i18n="trust.1.h4">QR verification on report cards</h4>
+        <p data-i18n="trust.1.p">Every report card is stamped with a unique QR code. Scan it with any phone and InScola confirms the card is genuine and shows the exact results it was issued with — a forged or altered card simply won't check out.</p>
+      </div>
+      <div class="trust-card reveal">
+        <span class="trust-ic"><svg><use href="#i-lock"></use></svg></span>
+        <h4 data-i18n="trust.2.h4">Secure watermarks on receipts</h4>
+        <p data-i18n="trust.2.p">Fee receipts are printed with a secure watermark that can't be copied or edited. Your bursary and every parent get a payment record that stands up to scrutiny and can't be quietly duplicated.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -328,7 +361,7 @@
   <div class="wrap center">
     <div class="who mx-auto reveal">
       <span class="eyebrow light" data-i18n="who.eyebrow">Who it's for</span>
-      <p class="big" style="margin-top:18px;" data-i18n-html="who.p">InScola is designed for Cameroon secondary schools with <em>hundreds — thousands of students</em>, teaching in English, French, or both. If your school has Form 1 through Upper Sixth, examination classes, a finance office, and teachers who enter marks — <em>InScola was built for you.</em></p>
+      <p class="big" style="margin-top:18px;" data-i18n-html="who.p">InScola is built for Cameroon secondary schools — Form 1 through Upper Sixth, with examination classes, a finance office, and teachers who enter marks on sequences. If you manage GCE candidates, run a bursar's office, and want your report cards to look like the Ministry expects — <em>InScola was built for you specifically.</em></p>
     </div>
   </div>
 </section>
@@ -494,7 +527,7 @@
       <div class="directcard reveal">
         <div class="eyebrow" style="margin-bottom:6px;" data-i18n="con.direct">Or contact us directly</div>
         <div class="dline"><span class="di"><svg><use href="#i-phone"></use></svg></span><div><div class="dk" data-i18n="con.dk1">Phone</div><div class="dv" data-field="phone"><a href="tel:+237683654408" style="color:inherit;">+237 683 654 408</a></div></div></div>
-        <div class="dline"><span class="di"><svg><use href="#i-wa"></use></svg></span><div><div class="dk" data-i18n="con.dk2">WhatsApp</div><div class="dv" data-field="whatsapp"><a href="https://wa.me/237677386779" target="_blank" rel="noopener" style="color:inherit;">+237 677 386 779</a></div></div></div>
+        <div class="dline dline-wa"><span class="di"><svg><use href="#i-wa"></use></svg></span><div><div class="dk" data-i18n="con.dk2">WhatsApp</div><div class="dv" data-field="whatsapp"><a href="https://wa.me/237677386779" target="_blank" rel="noopener" style="color:inherit;">+237 677 386 779</a></div><div class="dsub" data-i18n="con.wa_note">Our assistant replies instantly — even outside office hours.</div></div></div>
         <div class="dline"><span class="di"><svg><use href="#i-mail"></use></svg></span><div><div class="dk" data-i18n="con.dk3">Email</div><div class="dv" data-field="email"><a href="mailto:info@inscola.app" style="color:inherit;">info@inscola.app</a></div></div></div>
         <div class="dline"><span class="di"><svg><use href="#i-pin"></use></svg></span><div><div class="dk" data-i18n="con.dk4">Location</div><div class="dv" data-i18n="con.location">Douala, Cameroon</div></div></div>
       </div>
@@ -560,18 +593,26 @@ const T = {
     'ben.3.h3': 'Owned by you. No monthly fees.',
     'ben.3.p': 'InScola runs on a server inside your school — by cable or Wi-Fi, working offline, surviving power cuts. One annual licence, not a subscription. Stop paying and your data still stays with you.',
     'feat.eyebrow': 'Everything in one place', 'feat.h2': 'One system for the whole school.',
-    'feat.lead': 'Eight modules, six roles — all sharing the same data, in English or French.',
-    'feat.1.h4': 'Marks Management', 'feat.1.p': 'Entry by sequence & term with autosave, Excel import/export, coefficients out of 20.',
-    'feat.2.h4': 'Report Cards', 'feat.2.p': 'Ministry-standard report cards with averages, rank, conduct & QR verification.',
-    'feat.3.h4': 'Mock Results', 'feat.3.p': 'GCE letter grades (A–U) from marks already entered, ranked by papers passed.',
-    'feat.4.h4': 'Finance & Payroll', 'feat.4.p': 'Fees, invoices, receipts, expenses, Profit & Loss, payroll and payslips in one ledger.',
-    'feat.5.h4': 'Notifications', 'feat.5.p': 'Automatic SMS & email to parents, with a transparent credit & top-up system.',
-    'feat.6.h4': 'Student Records', 'feat.6.p': 'Profiles, matricules, ID cards, transcripts and one-click year promotion.',
-    'feat.7.h4': 'Attendance & Discipline', 'feat.7.p': 'Attendance per stream and an incident register that feeds the report card.',
-    'feat.8.h4': 'Role-Based Access', 'feat.8.p': 'Six secure roles, each its own workspace, with a full audit trail.',
+    'feat.lead': 'Ten modules, seven roles — all sharing the same data, in English or French.',
+    'feat.1.h4': 'Marks Management', 'feat.1.p': 'Multiple sequences per term, autosave, Excel import/export and bulk upload. Coefficients out of 20, marking period locks and compliance tracking so nothing falls through before report day.',
+    'feat.2.h4': 'Report Cards', 'feat.2.p': 'Ministry-standard report cards with coefficient-weighted averages, class ranking, per-subject rank, conduct, council decisions, student photo and QR verification seal — generated for a whole class in under 30 seconds.',
+    'feat.3.h4': 'Mock Results', 'feat.3.p': 'GCE letter grades A–U computed from marks already in the system using configurable grade thresholds per level. Students ranked by papers passed — exactly how official GCE results are read.',
+    'feat.4.h4': 'Finance & Payroll', 'feat.4.p': 'Fee instalments with oldest-due-first allocation, payment void and reversal with audit trail, secure watermarked receipts, payroll runs with draft/approval/payment lifecycle, expense tracking and a full Profit & Loss view.',
+    'feat.5.h4': 'Notifications', 'feat.5.p': 'Automatic SMS and email to parents on absences, fee overdue, discipline incidents and report card availability. Broadcast to a class or the whole school. Pay-as-you-go at 50 XAF per SMS.',
+    'feat.6.h4': 'Student Records', 'feat.6.p': 'Full enrolment history, stream transfers with context preserved, bulk matricule assignment, photo ID cards with QR codes and bulk ZIP download for print shops — bilingual card generation in English or French.',
+    'feat.7.h4': 'Attendance & Discipline', 'feat.7.p': 'Daily attendance per class with lateness tracking. Disciplinary incident register with severity levels and a conduct algorithm that feeds directly into the report card — no manual calculation.',
+    'feat.8.h4': 'Role-Based Access', 'feat.8.p': 'Seven roles — Admin, VP, Principal, Teacher, Bursar, Accountant, Discipline Master — each with their own secure workspace. Marking periods lock on admin command. Every action logged in a permanent audit trail.',
+    'feat.9.h4': 'Year-End Promotion', 'feat.9.p': "Promote an entire school cohort in minutes. Preview every student's destination before committing. Per-student overrides for repeats and graduates. Outstanding fee balances carry forward automatically into the new year's invoice.",
+    'feat.10.h4': 'Transcripts', 'feat.10.p': "O-Level & A-Level transcripts pulled from a student's full multi-year academic history — every subject, session and result assembled automatically into a clean, printable record ready for GCE boards and university applications.",
+    'trust.eyebrow': 'Verified & tamper-proof', 'trust.h2': 'Documents nobody can fake.',
+    'trust.lead': 'Every report card and receipt InScola prints carries a built-in proof of authenticity — so parents, banks and exam boards can trust what they hold.',
+    'trust.1.h4': 'QR verification on report cards',
+    'trust.1.p': "Every report card is stamped with a unique QR code. Scan it with any phone and InScola confirms the card is genuine and shows the exact results it was issued with — a forged or altered card simply won't check out.",
+    'trust.2.h4': 'Secure watermarks on receipts',
+    'trust.2.p': "Fee receipts are printed with a secure watermark that can't be copied or edited. Your bursary and every parent get a payment record that stands up to scrutiny and can't be quietly duplicated.",
     'shot.eyebrow': 'See it in action', 'shot.h2': 'Real screens. Real output.',
     'shot.1.h4': 'Report card — print view', 'shot.1.p': 'Generated in under 30 seconds. Every field computed automatically.',
-    'shot.2.h4': 'Mock results panel', 'shot.2.p': 'GCE letter grades from marks already entered. No manual conversion.',
+    'shot.2.h4': 'Mock results', 'shot.2.p': 'GCE letter grades from marks already entered. No manual conversion.',
     'shot.3.h4': 'Finance dashboard', 'shot.3.p': 'Fees, payments, payroll and expenses in one place.',
     'price.eyebrow': 'Plans & Pricing', 'price.h2': 'Three packages. One flat renewal.',
     'price.lead': 'A one-time setup, then a flat <b>100,000 XAF / year</b> licence — the same for every package. Choose the scope that fits your school today; everything runs on your own server, bilingual EN/FR.',
@@ -650,6 +691,7 @@ const T = {
     'con.err': 'Something went wrong — please try “Send via WhatsApp” instead.',
     'con.direct': 'Or contact us directly',
     'con.dk1': 'Phone', 'con.dk2': 'WhatsApp', 'con.dk3': 'Email', 'con.dk4': 'Location',
+    'con.wa_note': 'Our assistant replies instantly — even outside office hours.',
     'con.location': 'Douala, Cameroon',
     'foot.tagline': 'Complete school management for Cameroonian secondary schools. Empowering Education, Simplifying Management.',
     'foot.why': 'Why InScola', 'foot.feat': 'Features', 'foot.price': 'Pricing',
@@ -676,18 +718,26 @@ const T = {
     'ben.3.h3': 'Vous en êtes propriétaire. Pas d’abonnement mensuel.',
     'ben.3.p': 'InScola fonctionne sur un serveur à l’intérieur de votre école — par câble ou Wi-Fi, hors ligne, résistant aux coupures de courant. Une licence annuelle, pas un abonnement. Cessez de payer et vos données restent chez vous.',
     'feat.eyebrow': 'Tout en un seul endroit', 'feat.h2': 'Un système pour toute l’école.',
-    'feat.lead': 'Huit modules, six rôles — tous partageant les mêmes données, en anglais ou en français.',
-    'feat.1.h4': 'Gestion des Notes', 'feat.1.p': 'Saisie par séquence et trimestre avec sauvegarde auto, import/export Excel, coefficients sur 20.',
-    'feat.2.h4': 'Bulletins Scolaires', 'feat.2.p': 'Bulletins aux normes du Ministère avec moyennes, rang, conduite et vérification QR.',
-    'feat.3.h4': 'Résultats des Épreuves', 'feat.3.p': 'Notes GCE (A–U) à partir des notes déjà saisies, classées par matières réussies.',
-    'feat.4.h4': 'Finance & Paie', 'feat.4.p': 'Frais, factures, reçus, dépenses, Pertes & Profits, paie et bulletins de paie dans un seul registre.',
-    'feat.5.h4': 'Notifications', 'feat.5.p': 'SMS et e-mail automatiques aux parents, avec un système de crédit et de recharge transparent.',
-    'feat.6.h4': 'Dossiers des Élèves', 'feat.6.p': 'Profils, matricules, cartes d’identité, relevés et promotion en un clic.',
-    'feat.7.h4': 'Présences & Discipline', 'feat.7.p': 'Présences par classe et un registre d’incidents qui alimente le bulletin.',
-    'feat.8.h4': 'Accès par Rôle', 'feat.8.p': 'Six rôles sécurisés, chacun avec son propre espace de travail, avec une piste d’audit complète.',
+    'feat.lead': 'Dix modules, sept rôles — tous partageant les mêmes données, en anglais ou en français.',
+    'feat.1.h4': 'Gestion des Notes', 'feat.1.p': 'Plusieurs séquences par trimestre, sauvegarde automatique, import/export Excel et téléversement en masse. Coefficients sur 20, verrouillage des périodes de saisie et suivi de conformité pour que rien ne manque avant le jour des bulletins.',
+    'feat.2.h4': 'Bulletins Scolaires', 'feat.2.p': 'Bulletins aux normes du Ministère avec moyennes pondérées par coefficient, classement de la classe, rang par matière, conduite, décisions du conseil, photo de l’élève et sceau de vérification QR — générés pour toute une classe en moins de 30 secondes.',
+    'feat.3.h4': 'Résultats des Épreuves', 'feat.3.p': 'Notes GCE A–U calculées à partir des notes déjà dans le système, avec des seuils de note configurables par niveau. Élèves classés par matières réussies — exactement comme se lisent les résultats officiels du GCE.',
+    'feat.4.h4': 'Finance & Paie', 'feat.4.p': 'Versements de frais avec imputation la plus ancienne d’abord, annulation et contre-passation des paiements avec piste d’audit, reçus sécurisés filigranés, cycles de paie avec brouillon/approbation/paiement, suivi des dépenses et une vue Pertes & Profits complète.',
+    'feat.5.h4': 'Notifications', 'feat.5.p': 'SMS et e-mail automatiques aux parents en cas d’absence, de frais en retard, d’incident de discipline et de disponibilité du bulletin. Diffusion à une classe ou à toute l’école. À la demande, à 50 XAF par SMS.',
+    'feat.6.h4': 'Dossiers des Élèves', 'feat.6.p': 'Historique complet des inscriptions, transferts de classe avec le contexte préservé, attribution de matricules en masse, cartes d’identité avec photo et QR code et téléchargement ZIP groupé pour les imprimeurs — génération de cartes bilingue en anglais ou en français.',
+    'feat.7.h4': 'Présences & Discipline', 'feat.7.p': 'Présences quotidiennes par classe avec suivi des retards. Registre des incidents disciplinaires avec niveaux de gravité et un algorithme de conduite qui alimente directement le bulletin — aucun calcul manuel.',
+    'feat.8.h4': 'Accès par Rôle', 'feat.8.p': 'Sept rôles — Admin, Censeur, Directeur, Enseignant, Intendant, Comptable, Surveillant Général — chacun avec son propre espace de travail sécurisé. Les périodes de saisie se verrouillent sur commande de l’admin. Chaque action est journalisée dans une piste d’audit permanente.',
+    'feat.9.h4': 'Promotion de Fin d’Année', 'feat.9.p': 'Promouvez toute une cohorte scolaire en quelques minutes. Prévisualisez la destination de chaque élève avant de valider. Ajustements par élève pour les redoublants et les diplômés. Les soldes de frais impayés sont reportés automatiquement sur la facture de la nouvelle année.',
+    'feat.10.h4': 'Relevés de Notes', 'feat.10.p': 'Relevés O-Level et A-Level extraits de tout l’historique académique pluriannuel d’un élève — chaque matière, session et résultat assemblés automatiquement dans un document clair et imprimable, prêt pour les jurys du GCE et les candidatures universitaires.',
+    'trust.eyebrow': 'Vérifié & infalsifiable', 'trust.h2': 'Des documents impossibles à falsifier.',
+    'trust.lead': 'Chaque bulletin et chaque reçu imprimé par InScola porte une preuve d’authenticité intégrée — pour que parents, banques et jurys d’examen puissent se fier à ce qu’ils ont en main.',
+    'trust.1.h4': 'Vérification QR sur les bulletins',
+    'trust.1.p': 'Chaque bulletin est marqué d’un QR code unique. Scannez-le avec n’importe quel téléphone et InScola confirme que le bulletin est authentique et affiche les résultats exacts avec lesquels il a été émis — un bulletin falsifié ou modifié ne passera tout simplement pas.',
+    'trust.2.h4': 'Filigranes sécurisés sur les reçus',
+    'trust.2.p': 'Les reçus de frais sont imprimés avec un filigrane sécurisé impossible à copier ou à modifier. Votre intendance et chaque parent obtiennent un justificatif de paiement fiable et impossible à dupliquer discrètement.',
     'shot.eyebrow': 'Voir en action', 'shot.h2': 'Vrais écrans. Vrais résultats.',
     'shot.1.h4': 'Bulletin — vue impression', 'shot.1.p': 'Généré en moins de 30 secondes. Chaque champ calculé automatiquement.',
-    'shot.2.h4': 'Tableau de résultats d’épreuves', 'shot.2.p': 'Notes GCE à partir des notes déjà saisies. Pas de conversion manuelle.',
+    'shot.2.h4': 'Résultats d’épreuves', 'shot.2.p': 'Notes GCE à partir des notes déjà saisies. Pas de conversion manuelle.',
     'shot.3.h4': 'Tableau de bord financier', 'shot.3.p': 'Frais, paiements, paie et dépenses en un seul endroit.',
     'price.eyebrow': 'Formules & Tarifs', 'price.h2': 'Trois formules. Un renouvellement fixe.',
     'price.lead': 'Un frais d’installation unique, puis une licence fixe de <b>100 000 XAF / an</b> — identique pour chaque formule. Choisissez le périmètre adapté à votre école aujourd’hui ; tout fonctionne sur votre propre serveur, bilingue EN/FR.',
@@ -766,6 +816,7 @@ const T = {
     'con.err': 'Une erreur s’est produite — veuillez essayer « Envoyer via WhatsApp » à la place.',
     'con.direct': 'Ou contactez-nous directement',
     'con.dk1': 'Téléphone', 'con.dk2': 'WhatsApp', 'con.dk3': 'E-mail', 'con.dk4': 'Localisation',
+    'con.wa_note': 'Notre assistant répond instantanément — même en dehors des heures de bureau.',
     'con.location': 'Douala, Cameroun',
     'foot.tagline': 'Gestion complète d’école pour les lycées camerounais. Renforcer l’éducation, simplifier la gestion.',
     'foot.why': 'Pourquoi InScola', 'foot.feat': 'Fonctionnalités', 'foot.price': 'Tarifs',
