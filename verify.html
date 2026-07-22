@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verify InScola Document</title>
+<meta name="description" content="Verify an InScola report card, transcript, or receipt from its signed QR code.">
+<link rel="icon" type="image/svg+xml" href="assets/inscola-icon-ink.svg">
+<link rel="stylesheet" href="site.css">
+<style>
+  body.verify-page{ min-height:100vh; background:var(--soft); }
+  .verify-shell{ min-height:100vh; display:flex; flex-direction:column; }
+  .verify-main{ flex:1; display:grid; place-items:center; padding:60px 0; }
+  .verify-card{ width:min(720px,100%); background:#fff; border:1px solid var(--line); border-radius:var(--r); padding:34px; box-shadow:0 18px 44px rgba(20,26,60,.10); }
+  .verify-top{ display:flex; align-items:center; justify-content:space-between; gap:18px; margin-bottom:28px; }
+  .verify-brand{ display:flex; align-items:center; gap:10px; color:var(--ink); }
+  .verify-brand img{ width:34px; height:34px; }
+  .verify-brand b{ font-family:var(--serif); font-size:22px; font-weight:600; }
+  .verify-lang{ display:inline-flex; gap:5px; padding:5px; border-radius:999px; background:var(--soft-2); border:1px solid var(--line); }
+  .verify-lang button{ border:0; background:transparent; border-radius:999px; padding:7px 12px; font:600 13px var(--body); color:var(--muted); cursor:pointer; }
+  .verify-lang button.active{ background:#fff; color:var(--indigo); box-shadow:0 2px 10px rgba(20,26,60,.12); }
+  .verify-status{ display:flex; gap:16px; align-items:flex-start; padding:20px; border-radius:14px; border:1px solid var(--line); background:var(--soft); }
+  .verify-status.ok{ background:var(--emerald-tint); border-color:#a7e3c6; }
+  .verify-status.bad{ background:#fff1f2; border-color:#fecdd3; }
+  .verify-status.warn{ background:var(--amber-tint); border-color:#fed7aa; }
+  .verify-icon{ flex:none; width:46px; height:46px; border-radius:13px; display:grid; place-items:center; font-size:25px; font-weight:800; background:#fff; }
+  .verify-status.ok .verify-icon{ color:var(--emerald); }
+  .verify-status.bad .verify-icon{ color:var(--rose); }
+  .verify-status.warn .verify-icon{ color:var(--amber); }
+  .verify-status h1{ font-size:26px; margin-bottom:5px; }
+  .verify-status p{ color:var(--muted); }
+  .verify-details{ margin-top:24px; border:1px solid var(--line); border-radius:13px; overflow:hidden; }
+  .verify-row{ display:grid; grid-template-columns:190px 1fr; gap:16px; padding:13px 16px; border-bottom:1px solid var(--line); }
+  .verify-row:last-child{ border-bottom:0; }
+  .verify-label{ font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+  .verify-value{ font-weight:600; color:var(--ink); overflow-wrap:anywhere; }
+  .verify-actions{ margin-top:24px; display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; }
+  .verify-note{ font-size:13px; color:var(--muted); max-width:420px; }
+  @media (max-width:640px){
+    .verify-main{ padding:28px 0; }
+    .verify-card{ padding:24px; }
+    .verify-top{ align-items:flex-start; flex-direction:column; }
+    .verify-row{ grid-template-columns:1fr; gap:3px; }
+    .verify-actions{ align-items:flex-start; flex-direction:column; }
+  }
+</style>
+</head>
+<body class="verify-page">
+<div class="verify-shell">
+  <main class="verify-main">
+    <div class="wrap">
+      <section class="verify-card" aria-live="polite">
+        <div class="verify-top">
+          <a class="verify-brand" href="index.html">
+            <img src="assets/inscola-icon-ink.svg" alt="">
+            <b>InScola</b>
+          </a>
+          <div class="verify-lang" aria-label="Language">
+            <button type="button" data-lang="en" class="active">EN</button>
+            <button type="button" data-lang="fr">FR</button>
+          </div>
+        </div>
+
+        <div id="status" class="verify-status warn">
+          <div class="verify-icon">?</div>
+          <div>
+            <h1 data-text="checkingTitle">Checking document...</h1>
+            <p data-text="checkingBody">Reading the signed QR payload.</p>
+          </div>
+        </div>
+
+        <div id="details" class="verify-details" hidden></div>
+
+        <div class="verify-actions">
+          <p class="verify-note" data-text="privacy">Verification happens in this browser. The document summary is not sent to InScola.</p>
+          <a class="btn btn-light" href="index.html" data-text="home">Back to InScola</a>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<script>
+const PUBLIC_KEYS = {
+  // Replace with the backend's base64url Ed25519 raw public key.
+  // The key id should match summary.kid when present; "default" is fallback.
+  default: "p3SGxH9lhQB5PTW6kowxBB2yJ7vW3tTOGdbaCwQHk1c"
+};
+
+const LABELS = {
+  en: {
+    checkingTitle: "Checking document...",
+    checkingBody: "Reading the signed QR payload.",
+    validTitle: "Authentic document",
+    validBody: "This summary matches an InScola cryptographic seal.",
+    invalidTitle: "Not valid",
+    invalidBody: "This QR code is missing, altered, unsupported, or signed by an unknown key.",
+    unconfiguredTitle: "Verifier key not configured",
+    unconfiguredBody: "This page is installed, but the school's public verification key has not been published yet.",
+    privacy: "Verification happens in this browser. The document summary is not sent to InScola.",
+    home: "Back to InScola",
+    school: "School",
+    type: "Document",
+    id: "Document ID",
+    name: "Student",
+    amount: "Amount",
+    average: "Average",
+    date: "Issue date",
+    rc: "Report card",
+    trn: "Transcript",
+    rcpt: "Receipt",
+    report_card: "Report card",
+    transcript: "Transcript",
+    receipt: "Receipt"
+  },
+  fr: {
+    checkingTitle: "Verification du document...",
+    checkingBody: "Lecture du contenu signe du code QR.",
+    validTitle: "Document authentique",
+    validBody: "Ce resume correspond a un sceau cryptographique InScola.",
+    invalidTitle: "Non valide",
+    invalidBody: "Ce code QR est manquant, modifie, non pris en charge ou signe par une cle inconnue.",
+    unconfiguredTitle: "Cle de verification non configuree",
+    unconfiguredBody: "Cette page est installee, mais la cle publique de verification de l'ecole n'a pas encore ete publiee.",
+    privacy: "La verification se fait dans ce navigateur. Le resume du document n'est pas envoye a InScola.",
+    home: "Retour a InScola",
+    school: "Ecole",
+    type: "Document",
+    id: "ID du document",
+    name: "Eleve",
+    amount: "Montant",
+    average: "Moyenne",
+    date: "Date d'emission",
+    rc: "Bulletin",
+    trn: "Releve de notes",
+    rcpt: "Recu",
+    report_card: "Bulletin",
+    transcript: "Releve de notes",
+    receipt: "Recu"
+  }
+};
+
+let lang = localStorage.getItem("inscola_verify_lang") || (navigator.language || "en").slice(0, 2);
+if (!LABELS[lang]) lang = "en";
+
+document.querySelectorAll("[data-lang]").forEach((button) => {
+  button.addEventListener("click", () => {
+    lang = button.dataset.lang;
+    localStorage.setItem("inscola_verify_lang", lang);
+    renderStaticText();
+    verifyFromHash();
+  });
+});
+
+window.addEventListener("hashchange", verifyFromHash);
+renderStaticText();
+verifyFromHash();
+
+function renderStaticText() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-lang]").forEach((button) => {
+    button.classList.toggle("active", button.dataset.lang === lang);
+  });
+  document.querySelectorAll("[data-text]").forEach((el) => {
+    el.textContent = t(el.dataset.text);
+  });
+}
+
+async function verifyFromHash() {
+  const status = document.getElementById("status");
+  const details = document.getElementById("details");
+  details.hidden = true;
+  details.innerHTML = "";
+  setStatus("warn", "?", t("checkingTitle"), t("checkingBody"));
+
+  try {
+    const token = location.hash.replace(/^#/, "").trim();
+    if (!token) throw new Error("missing");
+    const [summaryPart, signaturePart] = token.split(".");
+    if (!summaryPart || !signaturePart) throw new Error("bad-token");
+
+    const signedBytes = new TextEncoder().encode(summaryPart);
+    const summaryBytes = base64urlToBytes(summaryPart);
+    const signatureBytes = base64urlToBytes(signaturePart);
+    const summary = JSON.parse(new TextDecoder().decode(summaryBytes));
+    const keyText = PUBLIC_KEYS[summary.kid] || PUBLIC_KEYS[summary.sch] || PUBLIC_KEYS.default;
+
+    if (!keyText || keyText.includes("REPLACE_WITH")) {
+      setStatus("warn", "!", t("unconfiguredTitle"), t("unconfiguredBody"));
+      return;
+    }
+
+    const publicKey = await crypto.subtle.importKey(
+      "raw",
+      base64urlToBytes(keyText),
+      { name: "Ed25519" },
+      false,
+      ["verify"]
+    );
+    const ok = await crypto.subtle.verify(
+      { name: "Ed25519" },
+      publicKey,
+      signatureBytes,
+      signedBytes
+    );
+
+    if (!ok) throw new Error("invalid-signature");
+    setStatus("ok", "✓", t("validTitle"), t("validBody"));
+    renderDetails(summary);
+  } catch (error) {
+    setStatus("bad", "×", t("invalidTitle"), t("invalidBody"));
+  }
+
+  function setStatus(kind, icon, title, body) {
+    status.className = `verify-status ${kind}`;
+    status.innerHTML = `
+      <div class="verify-icon">${escapeHtml(icon)}</div>
+      <div>
+        <h1>${escapeHtml(title)}</h1>
+        <p>${escapeHtml(body)}</p>
+      </div>
+    `;
+  }
+}
+
+function renderDetails(summary) {
+  const rows = [
+    ["school", summary.sch],
+    ["type", t(summary.typ) || summary.typ],
+    ["id", summary.doc_id || summary.id],
+    ["name", summary.name || summary.nm],
+    [summary.typ === "rcpt" ? "amount" : "average", summary.amt || summary.avg || summary.val],
+    ["date", summary.date || summary.dt]
+  ].filter(([, value]) => value !== undefined && value !== null && value !== "");
+
+  const details = document.getElementById("details");
+  details.innerHTML = rows.map(([label, value]) => `
+    <div class="verify-row">
+      <div class="verify-label">${escapeHtml(t(label))}</div>
+      <div class="verify-value">${escapeHtml(String(value))}</div>
+    </div>
+  `).join("");
+  details.hidden = rows.length === 0;
+}
+
+function base64urlToBytes(value) {
+  const padded = value.replace(/-/g, "+").replace(/_/g, "/").padEnd(Math.ceil(value.length / 4) * 4, "=");
+  const raw = atob(padded);
+  return Uint8Array.from(raw, (char) => char.charCodeAt(0));
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function t(key) {
+  return LABELS[lang][key] || LABELS.en[key] || key;
+}
+</script>
+</body>
+</html>
