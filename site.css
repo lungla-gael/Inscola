@@ -89,10 +89,9 @@ strong{ font-weight:700; color:var(--ink); }
 .glow{ position:absolute; border-radius:50%; filter:blur(70px); pointer-events:none; }
 .hero .wrap{ position:relative; }
 .hero-copy{ max-width:760px; }
-.pills{ display:flex; flex-wrap:wrap; gap:9px; }
-.pill{ display:inline-flex; align-items:center; gap:7px; font-size:13px; font-weight:600; color:#cfd3f5;
-  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.14); padding:6px 13px; border-radius:999px; }
-.pill .dot{ width:6px; height:6px; border-radius:50%; background:var(--indigo-2); }
+.pills{ display:flex; flex-wrap:wrap; align-items:center; gap:0; }
+.pill{ display:inline-flex; align-items:center; font-size:13px; font-weight:600; color:#cfd3f5; letter-spacing:.02em; }
+.pill + .pill::before{ content:""; width:1px; height:14px; margin:0 13px; background:rgba(255,255,255,.28); }
 .hero-actions{ display:flex; flex-wrap:wrap; gap:13px; }
 .browser{ border-radius:14px 14px 0 0; overflow:hidden; border:1px solid rgba(255,255,255,.12); border-bottom:none;
   box-shadow:0 -2px 60px rgba(0,0,0,.4); background:#0e1530; }
