@@ -81,9 +81,13 @@
 </div>
 
 <script>
+// Base64url Ed25519 raw public keys, keyed by each deployment's key id
+// (summary.kid — the fingerprint returned by GET /api/signing-public-key/).
+// To onboard another school, add its { "<kid>": "<public_key>" } entry here;
+// documents self-select the right key via their kid. "default" stays as a
+// fallback for legacy QRs signed before kid was stamped in.
 const PUBLIC_KEYS = {
-  // Replace with the backend's base64url Ed25519 raw public key.
-  // The key id should match summary.kid when present; "default" is fallback.
+  a3hQiWlwDElP: "p3SGxH9lhQB5PTW6kowxBB2yJ7vW3tTOGdbaCwQHk1c",
   default: "p3SGxH9lhQB5PTW6kowxBB2yJ7vW3tTOGdbaCwQHk1c"
 };
 
